@@ -1,7 +1,7 @@
 ---
 title: "Forwarding Commitment BGP Testbed and Deployment Experience"
 abbrev: "fcbgp-testbed-and-deployment-experience"
-category: Experimental
+category: exp
 
 docname: draft-li-fcbgp-experiment-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
