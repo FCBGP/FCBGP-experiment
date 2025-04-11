@@ -2,10 +2,10 @@
 
 
 
-WG Working Group                                              Y. N. Here
+WG Working Group                                                    Your
 Internet-Draft                                    Your Organization Here
-Intended status: Informational                              3 April 2025
-Expires: 5 October 2025
+Intended status: Informational                             11 April 2025
+Expires: 13 October 2025
 
 
                                  FC-BGP
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 October 2025.
+   This Internet-Draft will expire on 13 October 2025.
 
 Copyright Notice
 
@@ -109,6 +109,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
+   Your
    Your Organization Here
    Email: your.email@example.com
