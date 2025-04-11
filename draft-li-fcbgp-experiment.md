@@ -1,7 +1,7 @@
 ---
-title: "FC-BGP"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "Forwarding Commitment BGP Testbed and Deployment Experience"
+abbrev: "fcbgp-testbed-and-deployment-experience"
+category: Experimental
 
 docname: draft-li-fcbgp-experiment-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -9,8 +9,8 @@ number:
 date:
 consensus: true
 v: 3
-# area: AREA
-# workgroup: WG Working Group
+# area: "Routing"
+# workgroup: sidrops
 keyword:
  - next generation
  - unicorn
@@ -25,9 +25,7 @@ venue:
 
 author:
  -
-    fullname: Your
-    organization: Your Organization Here
-    email: "lzwthu@163.com"
+      
 
 normative:
 
