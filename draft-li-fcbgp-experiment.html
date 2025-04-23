@@ -1252,19 +1252,31 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-fc-bgp-testbed-on-fiti-infr">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-fc-bgp-testbed-on-fiti-infr" class="section-name selfRef">FC-BGP Testbed on FITI Infrastructure</a>
         </h3>
-<div class="alignLeft art-text artwork" id="section-4.2-1">
+<span id="name-fc-bgp-testbed-on-fiti-infra"></span><div id="fig-rs-ex">
+<figure id="figure-1">
+          <div class="alignLeft art-text artwork" id="section-4.2-1.1">
 <pre>
-                            +------------+
-                            │            │  +---------+    +----------+    │            │    +----------+     +----------+  │ Beijing │----│  FC-BGP  │----│            │----│  FC-BGP  │-----│ Shanghai │  +---------+    +----------+    │            │    +----------+     +----------+
-                            │            │
-                            │    FITI    │
- ...              ...       │            │        ...              ...
-                            │  Backbone  │
-                            │            │
-                            │            │  +---------+    +----------+    │            │    +----------+     +----------+  │ Nanjing │----│  FC-BGP  │----│            │----│  FC-BGP  │-----│ Shenzhen │  +---------+    +----------+    │            │    +----------+     +----------+
-                            │            │
-                            +------------+
-</pre><a href="#section-4.2-1" class="pilcrow">¶</a>
+                                    ┌────────────┐
+                                    │            │
+ ┌─────────┐      ┌──────────┐      │            │      ┌──────────┐       ┌──────────┐
+ │ Beijing │──────┤  FC-BGP  │──────┤            ├──────│  FC-BGP  ├───────│ Shanghai │
+ └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘
+                                    │            │
+                                    │    FITI    │
+     ...              ...           │            │          ...                ...
+                                    │  Backbone  │
+                                    │            │
+                                    │            │
+ ┌─────────┐      ┌──────────┐      │            │      ┌──────────┐       ┌──────────┐
+ │ Nanjing │──────┤  FC-BGP  │──────┤            ├──────│  FC-BGP  ├───────│ Shenzhen │
+ └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘
+                                    │            │
+                                    └────────────┘
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-fc-bgp-testbed-on-fiti-infra" class="selfRef">FC-BGP Testbed on FITI Infrastructure.</a>
+          </figcaption></figure>
 </div>
 </section>
 </div>
