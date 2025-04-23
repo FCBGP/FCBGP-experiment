@@ -99,7 +99,7 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
  └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘
                                     │            │
                                     │    FITI    │
-     ...              ...           │            │          ...                ...     
+     ...              ...           │            │          ...                ...
                                     │  Backbone  │
                                     │            │
                                     │            │
