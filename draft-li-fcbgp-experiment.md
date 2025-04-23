@@ -1,3 +1,4 @@
+git diff --cached --check
 ---
 title: "Forwarding Commitment BGP Testbed and Deployment Experience"
 abbrev: "fcbgp-testbed-and-deployment-experience"
