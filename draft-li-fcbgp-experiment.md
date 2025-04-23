@@ -62,43 +62,8 @@ author:
       email: guoyangfei@zgclab.edu.cn
 
 normative:
-  RFC4271: # BGP protocol
-  RFC4724: # Graceful Restart Mechanism for BGP
-  RFC4760: # Multiprotocol Extensions for BGP-4
-  RFC5656: # EC algo for secure shell transport layer
-  RFC6480: # RPKI infrastructure
-  RFC6482: # ROA profile
-  RFC6483: # validation route origin using RPKI and ROA
-  RFC6487: # A Profile for X.509 PKIX Resource Certificates
-  RFC6793: # BGP: 4-octet AS number
-  RFC7606: # Revised Error Handling for BGP UPDATE Messages
-  RFC7947: # Internet Exchange BGP Route Server
-  RFC8205: # BGPsec protocol
-  RFC8208: # BGPsec Algorithms, Key Formats, and Signature Formats
-  RFC8209: # BGPsec router certificate, CRL, CSR
-  RFC8210: # RTR, version 1
-  RFC8635: # Router Keying for BGPsec
-  RFC9234: # BGP ROLE Capability and OTC path attr.
 
 informative:
-  RFC4272: # BGP Security Vulnerabilities Analysis
-  RFC5065: # Autonomous System Confederations for BGP
-  RFC5492: # Capabilities Advertisement with BGP-4
-  RFC6472: # Recommendation for Not Using AS_SET and AS_CONFED_SET in BGP
-  RFC6811: # BGP Prefix Origin Validation
-  RFC7132: # Threat Model for BGP Path Security
-  RFC7607: # Codification of AS 0 Processing
-  RFC7908: # Route Leaks Definition and Classification
-  RFC8416: # Simplified Local Internet Number Resource Management with the RPKI (SLURM)
-  ASPP: I-D.ietf-grow-as-path-prepending
-  ASPA-Profile: I-D.ietf-sidrops-aspa-profile
-  ASPA-Verification: I-D.ietf-sidrops-aspa-verification
-  Deprecation-AS_SET-AS_CONFED_SET: I-D.ietf-idr-deprecate-as-set-confed-set # Deprecation of AS_SET and AS_CONFED_SET in BGP
-  FC-ARXIV:
-    title: "Secure Inter-domain Routing and Forwarding via Verifiable Forwarding Commitments"
-    date: Sep. 23, 2023
-    target: https://arxiv.org/abs/2309.13271
-
 
 --- abstract
 
