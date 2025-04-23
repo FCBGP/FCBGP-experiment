@@ -91,23 +91,25 @@ Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure inter-
 The prototypes of our solutions for FC-BGP are implemented and tested on FITI (Future Internet Technology Infrastructure). FITI is a major Chinese science and technology infrastructure investment, which is now under construction and operation by 40 universities, including the National Development and Reform Commission, the Ministry of Education and Tsinghua University. FITI holds 4096 Autonomous System Numbers (ASNs) assigned by APNIC, along with a 240a:a000::/20 IPv6 address block. With sites distributed across China, it features a genuine internet environment suitable for large-scale network experimentation. FITI supports a maximum bandwidth of up to 1.2 Tbps.
 
 ## FC-BGP Testbed on FITI Infrastructure
-
-                                +------------+
-                                │            │
- +---------+    +----------+    │            │    +----------+     +----------+
- │ Beijing │----│  FC-BGP  │----│            │----│  FC-BGP  │-----│ Shanghai │
- +---------+    +----------+    │            │    +----------+     +----------+
-                                │            │
-                                │    FITI    │
-     ...              ...       │            │        ...              ...
-                                │  Backbone  │
-                                │            │
-                                │            │
- +---------+    +----------+    │            │    +----------+     +----------+
- │ Nanjing │----│  FC-BGP  │----│            │----│  FC-BGP  │-----│ Shenzhen │
- +---------+    +----------+    │            │    +----------+     +----------+
-                                │            │
-                                +------------+
+~~~~~~
+                                    ┌────────────┐
+                                    │            │
+ ┌─────────┐      ┌──────────┐      │            │      ┌──────────┐       ┌──────────┐
+ │ Beijing │──────┤  FC-BGP  │──────┤            ├──────│  FC-BGP  ├───────│ Shanghai │
+ └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘
+                                    │            │
+                                    │    FITI    │
+     ...              ...           │            │          ...                ...     
+                                    │  Backbone  │
+                                    │            │
+                                    │            │
+ ┌─────────┐      ┌──────────┐      │            │      ┌──────────┐       ┌──────────┐
+ │ Nanjing │──────┤  FC-BGP  │──────┤            ├──────│  FC-BGP  ├───────│ Shenzhen │
+ └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘
+                                    │            │
+                                    └────────────┘
+~~~~~~
+{: #fig-rs-ex title="FC-BGP Testbed on FITI Infrastructure."}
 
 # Test Experience and Results
 
