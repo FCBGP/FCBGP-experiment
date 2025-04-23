@@ -92,6 +92,23 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
 
 ## FC-BGP Testbed on FITI Infrastructure
 
+                                    ┌────────────┐                                      
+                                    │            │                                      
+ ┌─────────┐      ┌──────────┐      │            │      ┌──────────┐       ┌──────────┐ 
+ │ Beijing │──────┤  FC-BGP  │──────┤            ├──────│  FC-BGP  ├───────│ Shanghai │ 
+ └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘ 
+                                    │            │                                      
+                                    │    FITI    │                                      
+     ...              ...           │            │          ...                ...      
+                                    │  Backbone  │                                      
+                                    │            │                                      
+                                    │            │                                      
+ ┌─────────┐      ┌──────────┐      │            │      ┌──────────┐       ┌──────────┐ 
+ │ Nanjing │──────┤  FC-BGP  │──────┤            ├──────│  FC-BGP  ├───────│ Shenzhen │ 
+ └─────────┘      └──────────┘      │            │      └──────────┘       └──────────┘ 
+                                    │            │                                      
+                                    └────────────┘                                      
+
 # Test Experience and Results
 
 # Security Considerations
