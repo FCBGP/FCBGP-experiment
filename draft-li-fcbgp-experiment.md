@@ -34,14 +34,14 @@ informative:
 
 --- abstract
 
-TODO Abstract
+Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network, as well as on the network interconnecting Internet Exchange Points（IXPs）. This document reports on the prototype implementation and the results of the evaluation.
 
 
 --- middle
 
 # Introduction
 
-TODO Introduction
+
 
 
 # Conventions and Definitions
@@ -54,6 +54,13 @@ TODO Introduction
 # FC-BGP Testbed
 
 ## FITI
+
+The prototypes of our solutions for FC-BGP are implemented and tested on FITI(Future Internet Technology Infrastructure). FITI is a major Chinese science and technology infrastructure investment, which is now under construction and operation by 40 universities, including the National Development and Reform Commission, the Ministry of Education and Tsinghua University.
+FITI holds 4096 ASN assigned by APNIC, along with a /20 IPv6 address block. With sites distributed across China, it features a genuine internet environment suitable for large-scale network experimentation, with a maximum bandwidth of up to 1.2T.
+
+FITI high-performance IPv6 backbone network connects 40 experimental nodes across 35 cities nationwide via 100G bandwidth links. It possesses 4,096 AS numbers and an IPv6 address block of 240a:a000::/20, enabling parallel experiments across 4,096 independent networks. This configuration establishes FITI as the largest Internet test facility in the world.
+
+FITI holds 4096 AS numbers assigned by APNIC, along with a /20 IPv6 address block. With sites distributed across China, it features a genuine internet environment suitable for large-scale network experimentation, with a maximum bandwidth of up to 1.2T.
 
 ## FC-BGP Testbed on FITI Infrastructure
 
