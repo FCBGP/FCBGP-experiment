@@ -24,37 +24,37 @@ venue:
   latest: "https://FCBGP.github.io/FCBGP-experiment/draft-li-fcbgp-experiment.html"
 
 author:
- -
+  -
       fullname: Ke Xu
       org: Tsinghua University
       city: Beijing
       country: China
       email: xuke@tsinghua.edu.cn
- -
+  -
       fullname: Xiaoliang Wang
       org: Tsinghua University
       city: Beijing
       country: China
       email: wangxiaoliang0623@foxmail.com
- -
+  -
       fullname: Zhuotao liu
       org: Tsinghua University
       city: Beijing
       country: China
       email: zhuotaoliu@tsinghua.edu.cn
- -
+  -
       fullname: Li Qi
       org: Tsinghua University
       city: Beijing
       country: China
       email: qli01@tsinghua.edu.cn
- -
+  -
       fullname: Jianping Wu
       org: Tsinghua University
       city: Beijing
       country: China
       email: jianping@cernet.edu.cn
- - 
+  -
       fullname: Ziwei Li
       org: Zhongguancun Laboratory
       city: Beijing
