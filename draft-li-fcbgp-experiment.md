@@ -9,8 +9,6 @@ number:
 date:
 consensus: true
 v: 3
-# area: "Routing"
-# workgroup: sidrops
 keyword:
   - next generation
   - unicorn
@@ -50,9 +48,6 @@ author:
     city: Beijing
     country: China
     email: lizw@zgclab.edu.cn
-
-normative:
-informative:
 ---
 
 # Abstract
@@ -61,7 +56,7 @@ Forwarding Commitment BGP (FC-BGP) is capable of establishing a secure inter-dom
 
 # Introduction
 
-_TODO: Add introduction._
+This section introduces the purpose and structure of the document. (To be expanded.)
 
 # Conventions and Definitions
 
@@ -69,7 +64,7 @@ _TODO: Add introduction._
 
 # FC-BGP Overview
 
-_TODO: Describe the protocol overview._
+This section provides an overview of the FC-BGP architecture. (To be added.)
 
 # FC-BGP Testbed
 
@@ -80,15 +75,15 @@ FITI holds 4,096 Autonomous System Numbers (ASNs) assigned by APNIC, along with 
 
 ## FC-BGP Testbed on FITI Infrastructure
 
-_TODO: Describe the setup and configuration._
+This section describes the configuration of the testbed. (To be expanded.)
 
 # Test Experience and Results
 
-_TODO: Summarize findings._
+This section outlines the testing methodology and outcomes. (To be filled.)
 
 # Security Considerations
 
-_TODO: Add discussion on security._
+Security implications will be addressed in this section. (To be detailed.)
 
 # IANA Considerations
 
@@ -97,4 +92,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-_TODO: Acknowledge contributors._
+Acknowledgments will be added here.
