@@ -135,6 +135,25 @@ Table of Contents
 
             Figure 1: FC-BGP Testbed on FITI Infrastructure.
 
+                                   +------------+
+                                   |            |
++---------+      +----------+      |            |      +----------+       +----------+
+| Beijing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shanghai |
++---------+      +----------+      |            |      +----------+       +----------+
+                                   |            |
+                                   |    FITI    |
+    ...              ...           |            |          ...                ...
+                                   |  Backbone  |
+                                   |            |
+                                   |            |
++---------+      +----------+      |            |      +----------+       +----------+
+| Nanjing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shenzhen |
++---------+      +----------+      |            |      +----------+       +----------+
+                                   |            |
+                                   +------------+
+
+         Figure 2: FC-BGP Testbed on FITI Infrastructure222.
+
 5.  Test Experience and Results
 
 6.  Security Considerations
