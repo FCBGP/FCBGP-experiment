@@ -108,22 +108,25 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
  └─────────┘   └──────────┘   │        │   └──────────┘    └──────────┘
                               │        │
                               └────────┘
-                                   +------------+                                     
-                                   |            |                                     
+~~~~~~
+{: #fig-rs-ex title="FC-BGP Testbed on FITI Infrastructure."}
+~~~~~~
+                                   +------------+
+                                   |            |
 +---------+      +----------+      |            |      +----------+       +----------+
 | Beijing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shanghai |
 +---------+      +----------+      |            |      +----------+       +----------+
-                                   |            |                                     
-                                   |    FITI    |                                     
-    ...              ...           |            |          ...                ...     
-                                   |  Backbone  |                                     
-                                   |            |                                     
-                                   |            |                                     
+                                   |            |
+                                   |    FITI    |
+    ...              ...           |            |          ...                ...
+                                   |  Backbone  |
+                                   |            |
+                                   |            |
 +---------+      +----------+      |            |      +----------+       +----------+
 | Nanjing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shenzhen |
 +---------+      +----------+      |            |      +----------+       +----------+
-                                   |            |                                     
-                                   +------------+                                     
+                                   |            |
+                                   +------------+
 ~~~~~~
 {: #fig-rs-ex title="FC-BGP Testbed on FITI Infrastructure."}
 
