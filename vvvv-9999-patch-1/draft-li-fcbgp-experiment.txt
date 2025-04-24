@@ -1,0 +1,204 @@
+
+
+
+
+Network Working Group                                              K. Xu
+Internet-Draft                                                   X. Wang
+Intended status: Experimental                                     Z. Liu
+Expires: 26 October 2025                                           Q. Li
+                                                                   J. Wu
+                                                     Tsinghua University
+                                                                  Y. Guo
+                                                 Zhongguancun Laboratory
+                                                           24 April 2025
+
+
+      Forwarding Commitment BGP Testbed and Deployment Experience
+                    draft-li-fcbgp-experiment-latest
+
+Abstract
+
+   Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure
+   inter-domain system that can simultaneously authenticate AS_PATH
+   attribute in BGP-UPDATE and validate network forwarding on the
+   dataplane.  In an effort to enhance the validation of FC-BGP, a
+   prototype implementation of the FC-BGP was developed and an
+   evaluation was conducted on the FITI high-performance IPv6 backbone
+   network, as well as on the network interconnecting Internet Exchange
+   Points（IXPs）. This document reports on the prototype implementation
+   and the results of the evaluation.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://FCBGP.github.io/FCBGP-experiment/draft-li-fcbgp-
+   experiment.html.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-li-fcbgp-experiment/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/FCBGP/FCBGP-experiment.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 26 October 2025.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  FC-BGP Overview
+   4.  FC-BGP Testbed
+     4.1.  FITI
+     4.2.  FC-BGP Testbed on FITI Infrastructure
+   5.  Test Experience and Results
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  FC-BGP Overview
+
+4.  FC-BGP Testbed
+
+4.1.  FITI
+
+   The prototypes of our solutions for FC-BGP are implemented and tested
+   on FITI (Future Internet Technology Infrastructure).  FITI is a major
+   Chinese science and technology infrastructure investment, which is
+   now under construction and operation by 40 universities, including
+   the National Development and Reform Commission, the Ministry of
+   Education and Tsinghua University.  FITI holds 4096 Autonomous System
+   Numbers (ASNs) assigned by APNIC, along with a 240a:a000::/20 IPv6
+   address block.  With sites distributed across China, it features a
+   genuine internet environment suitable for large-scale network
+   experimentation.  FITI supports a maximum bandwidth of up to 1.2
+   Tbps.
+
+4.2.  FC-BGP Testbed on FITI Infrastructure
+
+                                                 +--------+
+                                                    │             │
+ +-------+        +-------+          │             │        +-------+         +--------+
+│ Beijing │----│FC-BGP│----  │             │----│FC-BGP│----│Shanghai│
+ +-------+        +-------+          │             │        +-------+         +--------+
+                                                    │             │
+                                                    │    FITI    │
+        ...                      ...                 │             │               ...                        ...
+                                                    │Backbone│
+                                                    │             │
+                                                    │             │
+ +-------+        +-------+          │             │        +-------+         +--------+
+│ Nanjing│----│FC-BGP│----  │             │----│FC-BGP│----│Shenzhen│
+ +-------+        +-------+          │             │        +-------+         +--------+
+                                                    │             │
+                                                    +--------+
+
+           Figure 1: FC-BGP Testbed on FITI Infrastructure.
+
+5.  Test Experience and Results
+
+6.  Security Considerations
+
+   TODO Security
+
+7.  IANA Considerations
+
+   This document has no IANA actions.
+
+8.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Authors' Addresses
+
+   Ke Xu
+   Tsinghua University
+   Beijing
+   China
+   Email: xuke@tsinghua.edu.cn
+
+
+   Xiaoliang Wang
+   Tsinghua University
+   Beijing
+   China
+   Email: wangxiaoliang0623@foxmail.com
+
+
+   Zhuotao Liu
+   Tsinghua University
+   Beijing
+   China
+   Email: zhuotaoliu@tsinghua.edu.cn
+
+
+   Qi Li
+   Tsinghua University
+   Beijing
+   China
+   Email: qli01@tsinghua.edu.cn
+
+
+   Jianping Wu
+   Tsinghua University
+   Beijing
+   China
+   Email: jianping@cernet.edu.cn
+
+
+   Yangfei Guo
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: guoyangfei@zgclab.edu.cn
