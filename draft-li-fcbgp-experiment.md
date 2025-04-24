@@ -128,7 +128,7 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
                                    |            |
                                    +------------+
 ~~~~~~
-{: #fig-rs-ex title="FC-BGP Testbed on FITI Infrastructure."}
+{: #fig-rs-x title="FC-BGP Testbed on FITI Infrastructure222."}
 
 # Test Experience and Results
 
