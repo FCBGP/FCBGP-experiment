@@ -13,7 +13,7 @@
 <meta content="Ziwei Li" name="author">
 <meta content="Yangfei Guo" name="author">
 <meta content="
-       Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network, as well as on the network interconnecting Internet Exchange Points（IXPs）. This document reports on the prototype implementation and the results of the evaluation. 
+       Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation. 
     " name="description">
 <meta content="xml2rfc 3.28.1" name="generator">
 <meta content="next generation" name="keyword">
@@ -1111,7 +1111,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Forwarding Commitment BGP Testbed and Deployment Experience</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network, as well as on the network interconnecting Internet Exchange Points（IXPs）. This document reports on the prototype implementation and the results of the evaluation.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Forwarding Commitment BGP（FC-BGP） is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1185,10 +1185,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-fc-bgp-testbed" class="internal xref">FC-BGP Testbed</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-fiti" class="internal xref">FITI</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-fc-bgp-testbed-on-fiti-infr" class="internal xref">FC-BGP Testbed on FITI Infrastructure</a></p>
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-fiti" class="internal xref">FITI</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-fc-bgp-testbed-on-fiti-infr" class="internal xref">FC-BGP Testbed on FITI Infrastructure</a></p>
 </li>
             </ul>
 </li>
@@ -1236,7 +1239,26 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <section id="section-3">
       <h2 id="name-fc-bgp-overview">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-fc-bgp-overview" class="section-name selfRef">FC-BGP Overview</a>
-    </h2>
+      </h2>
+<span id="name-an-fc-bgp-update-propagatio"></span><div id="fig-atta-ex">
+<figure id="figure-1">
+        <div class="alignLeft art-text artwork" id="section-3-1.1">
+<pre>
+AS(65536) --&gt; AS(65537) --&gt; AS(65538)
+                      \
+                       \--&gt; AS(65539)
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-an-fc-bgp-update-propagatio" class="selfRef">An FC-BGP UPDATE propagation example.</a>
+        </figcaption></figure>
+</div>
+<p id="section-3-2">It is important to note that this example only introduces important steps here and see xxxxx for details. What's more,  here ASes are global AS and not RS or AS Confederation. No ASPP is taken into consideration.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">For the sake of discussion, we assume that AS 65537 receives an FC-BGP UPDATE message for prefix 192.0.2.0/24 from AS 65536 and will send the route to AS 65538 and AS 65539 as <a href="#fig-atta-ex" class="auto internal xref">Figure 1</a> shows. An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to downstream ASes only after completing the validation and best route path selection.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">When the FC-BGP speaker in AS 65536 plans to propagate routes to its downstream AS 65537, it fills the FC path attribute first. The PASN is 0/NULL, the CASN is 65536, and the NASN is 65537. Then it calculates the signature, fills the FC, and forms the FC path attribute and FC-BGP UPDATE message. Then, it sends the UPDATE message out.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">When receiving an UPDATE message from AS 65536, the FC-BGP speaker in AS 65537 retrieves the FC path attribute and extracts the FC list. It then finds the FC with <code>CASN == 65536</code> as the AS_PATH has only one AS(65536) and checks whether PASN is 0 as well as NASN is 65537. If so, it uses the SKI field to find the public key and calculates the signature using the algorithm specified in the Algorithm ID. If the calculated signature matches the signature in the FC segment, then the AS-Path hop associated with the AS 65536 is verified. This process repeats for all FCs and AS-Paths in the FC list if it has other ASes in AS_PATH. However, if AS 65537 does not support FC-BGP, the BGP speaker of AS 65537 simply forwards the BGP UPDATE to its neighbors when propagating this FC-BGP route without validating the FC path attribute.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">FC-BGP speakers need to generate different UPDATE messages for different neighbors. Each UPDATE announcement contains only one route prefix and cannot be aggregated. This is because different route prefixes may have different announcement paths due to different routing policies. Multiple aggregated route prefixes may cause FC generation and verification errors. When multiple route prefixes need to be announced, the FC-BGP speaker needs to generate different UPDATE messages for each route prefix. Thus, the FC-BGP speaker of AS 65537 generates different UPDATE messages for AS 65538 and AS 65539 separately. The biggest difference is that the NASN is 65538 for AS 65538 and 65539 for AS 65539 in the FC segment generated by AS 65537.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">Take AS 65538 as the next hop. The FC-BGP speaker in AS 65537 will encapsulate each prefix to be sent to AS 65538 in a single UPDATE message, add the FC path attribute, and sign the path content using its private key to fill a new FC segment. The FC path attribute and the FC segment use the message format shown in xxxx and xxxxx separately. When signing, the FC-BGP speaker computes the SHA256 hash in the order of (PASN ( 0 if absent), CASN, NASN, IP Prefix Address, and IP Prefix Length) first. Next, the FC-BGP speaker should calculate the digest information Digest, sign the Digest with ECDSA, and then fill in the Signature field and other FC fields. After that, AS 65537 prepends its own FC on top of the FC List. At this point, the processing of FC path attributes by the FC-BGP speaker is complete. The subsequent processing of BGP messages follows the standard BGP process.<a href="#section-3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fc-bgp-testbed">
@@ -1244,22 +1266,31 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-fc-bgp-testbed">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-fc-bgp-testbed" class="section-name selfRef">FC-BGP Testbed</a>
       </h2>
-<div id="fiti">
+<div id="implementation-status">
 <section id="section-4.1">
-        <h3 id="name-fiti">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-fiti" class="section-name selfRef">FITI</a>
+        <h3 id="name-implementation-status">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
         </h3>
-<p id="section-4.1-1">The prototypes of our solutions for FC-BGP are implemented and tested on FITI (Future Internet Technology Infrastructure). FITI is a major Chinese science and technology infrastructure investment, which is now under construction and operation by 40 universities, including the National Development and Reform Commission, the Ministry of Education and Tsinghua University. FITI holds 4096 Autonomous System Numbers (ASNs) assigned by APNIC, along with a 240a:a000::/20 IPv6 address block. With sites distributed across China, it features a genuine internet environment suitable for large-scale network experimentation. FITI supports a maximum bandwidth of up to 1.2 Tbps.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">We implement the FC-BGP mechanism with FRR version 9.0.1. The implementation includes verifying the FC path attribute upon receiving BGP UPDATE messages and adding and signing the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">GitHub repository: https://github.com/fcbgp/fcbgp-impl<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="fiti">
+<section id="section-4.2">
+        <h3 id="name-fiti">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-fiti" class="section-name selfRef">FITI</a>
+        </h3>
+<p id="section-4.2-1">The prototypes of our solutions for FC-BGP are implemented and tested on FITI (Future Internet Technology Infrastructure). FITI is a major Chinese science and technology infrastructure investment, which is now under construction and operation by 40 universities, including the National Development and Reform Commission, the Ministry of Education and Tsinghua University. FITI holds 4096 Autonomous System Numbers (ASNs) assigned by APNIC, along with a 240a:a000::/20 IPv6 address block. With sites distributed across China, it features a genuine internet environment suitable for large-scale network experimentation. FITI supports a maximum bandwidth of up to 1.2 Tbps.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fc-bgp-testbed-on-fiti-infrastructure">
-<section id="section-4.2">
+<section id="section-4.3">
         <h3 id="name-fc-bgp-testbed-on-fiti-infr">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-fc-bgp-testbed-on-fiti-infr" class="section-name selfRef">FC-BGP Testbed on FITI Infrastructure</a>
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-fc-bgp-testbed-on-fiti-infr" class="section-name selfRef">FC-BGP Testbed on FITI Infrastructure</a>
         </h3>
 <span id="name-fc-bgp-testbed-on-fiti-infra"></span><div id="fig-rs-x">
-<figure id="figure-1">
-          <div class="alignLeft art-text artwork" id="section-4.2-1.1">
+<figure id="figure-2">
+          <div class="alignLeft art-text artwork" id="section-4.3-1.1">
 <pre>
 +------------+           +------------+
 |   Beijing  |           |  Shanghai  |
@@ -1283,7 +1314,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 +------------+           +------------+
 </pre>
 </div>
-<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-fc-bgp-testbed-on-fiti-infra" class="selfRef">FC-BGP Testbed on FITI Infrastructure222.</a>
           </figcaption></figure>
 </div>
