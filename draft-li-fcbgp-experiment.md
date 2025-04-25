@@ -150,6 +150,10 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
 
 # Test Experience and Results
 
+Utilizing public datasets from RouteViews, we performed Internet BGP topology reconstruction and BGP announcement replay on the Testbed. Simultaneously, we adjusted the deployment ratio of FC-BGP to calculate the network-wide route hijackability rate under partial deployment scenarios as the deployment rate increases.
+
+Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP and BGPsec. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the origin hijacking rate at the current deployment rate r. We obtained the experimental result: With a deployment rate of only 10%, over 70% of Internet BGP paths can be protected.
+
 # Security Considerations
 
 TODO Security
