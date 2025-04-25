@@ -215,7 +215,7 @@ Table of Contents
    | +--------+ |           | +--------+ |
    +------------+           +------------+
 
-            Figure 2: FC-BGP Testbed on FITI Infrastructure222.
+              Figure 2: FC-BGP Testbed on FITI Infrastructure.
 
 5.  Test Experience and Results
 
