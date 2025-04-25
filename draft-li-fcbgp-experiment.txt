@@ -5,12 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 26 October 2025                                           Q. Li
+Expires: 27 October 2025                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
+                                                                   Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                           24 April 2025
+                                                           25 April 2025
 
 
       Forwarding Commitment BGP Testbed and Deployment Experience
@@ -55,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 October 2025.
+   This Internet-Draft will expire on 27 October 2025.
 
 Copyright Notice
 
@@ -116,43 +117,28 @@ Table of Contents
 
 4.2.  FC-BGP Testbed on FITI Infrastructure
 
-                               ┌────────┐
-                               │        │
-  ┌─────────┐   ┌──────────┐   │        │   ┌──────────┐    ┌──────────┐
-  │ Beijing │───┤  FC-BGP  │───┤        ├───│  FC-BGP  ├────│ Shanghai │
-  └─────────┘   └──────────┘   │        │   └──────────┘    └──────────┘
-                               │        │
-                               │  FITI  │
-      ...           ...        │        │       ...             ...
-                               │Backbone│
-                               │        │
-                               │        │
-  ┌─────────┐   ┌──────────┐   │        │   ┌──────────┐    ┌──────────┐
-  │ Nanjing │───┤  FC-BGP  │───┤        ├───│  FC-BGP  ├────│ Shenzhen │
-  └─────────┘   └──────────┘   │        │   └──────────┘    └──────────┘
-                               │        │
-                               └────────┘
+   +------------+           +------------+
+   |   Beijing  |           |  Shanghai  |
+   | +--------+ |           | +--------+ |
+   | | FC-BGP | |    ...    | | FC-BGP | |
+   | +--------+ |           | +--------+ |
+   +------------+           +------------+
+         |                        |
+   +-------------------------------------+
+   |                                     |
+   |                FITI                 |
+   |              Backbone               |
+   |                                     |
+   +-------------------------------------+
+         |                        |
+   +------------+           +------------+
+   |   Nanjing  |           |  Shenzhen  |
+   | +--------+ |           | +--------+ |
+   | | FC-BGP | |    ...    | | FC-BGP | |
+   | +--------+ |           | +--------+ |
+   +------------+           +------------+
 
-            Figure 1: FC-BGP Testbed on FITI Infrastructure.
-
-                                   +------------+
-                                   |            |
-+---------+      +----------+      |            |      +----------+       +----------+
-| Beijing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shanghai |
-+---------+      +----------+      |            |      +----------+       +----------+
-                                   |            |
-                                   |    FITI    |
-    ...              ...           |            |          ...                ...
-                                   |  Backbone  |
-                                   |            |
-                                   |            |
-+---------+      +----------+      |            |      +----------+       +----------+
-| Nanjing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shenzhen |
-+---------+      +----------+      |            |      +----------+       +----------+
-                                   |            |
-                                   +------------+
-
-         Figure 2: FC-BGP Testbed on FITI Infrastructure222.
+            Figure 1: FC-BGP Testbed on FITI Infrastructure222.
 
 5.  Test Experience and Results
 
@@ -214,6 +200,13 @@ Authors' Addresses
    Beijing
    China
    Email: jianping@cernet.edu.cn
+
+
+   Ziwei Li
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: lizw@zgclab.edu.cn
 
 
    Yangfei Guo
