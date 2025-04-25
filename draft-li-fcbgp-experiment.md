@@ -61,7 +61,7 @@ author:
       country: China
       email: lizw@zgclab.edu.cn
   -
-      fullname: Yangfei Guo
+      name: Yangfei Guo
       org: Zhongguancun Laboratory
       city: Beijing
       country: China
