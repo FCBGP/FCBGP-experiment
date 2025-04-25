@@ -54,8 +54,14 @@ author:
       city: Beijing
       country: China
       email: jianping@cernet.edu.cn
+    -
+      fullname: Ziwei Li
+      org: Zhongguancun Laboratory
+      city: Beijing
+      country: China
+      email: lizw@zgclab.edu.cn
   -
-      name: Yangfei Guo
+      fullname: Yangfei Guo
       org: Zhongguancun Laboratory
       city: Beijing
       country: China
@@ -92,41 +98,26 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
 
 ## FC-BGP Testbed on FITI Infrastructure
 ~~~~~~
-                              ┌────────┐
-                              │        │
- ┌─────────┐   ┌──────────┐   │        │   ┌──────────┐    ┌──────────┐
- │ Beijing │───┤  FC-BGP  │───┤        ├───│  FC-BGP  ├────│ Shanghai │
- └─────────┘   └──────────┘   │        │   └──────────┘    └──────────┘
-                              │        │
-                              │  FITI  │
-     ...           ...        │        │       ...             ...
-                              │Backbone│
-                              │        │
-                              │        │
- ┌─────────┐   ┌──────────┐   │        │   ┌──────────┐    ┌──────────┐
- │ Nanjing │───┤  FC-BGP  │───┤        ├───│  FC-BGP  ├────│ Shenzhen │
- └─────────┘   └──────────┘   │        │   └──────────┘    └──────────┘
-                              │        │
-                              └────────┘
-~~~~~~
-{: #fig-rs-ex title="FC-BGP Testbed on FITI Infrastructure."}
-~~~~~~
-                                   +------------+
-                                   |            |
-+---------+      +----------+      |            |      +----------+       +----------+
-| Beijing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shanghai |
-+---------+      +----------+      |            |      +----------+       +----------+
-                                   |            |
-                                   |    FITI    |
-    ...              ...           |            |          ...                ...
-                                   |  Backbone  |
-                                   |            |
-                                   |            |
-+---------+      +----------+      |            |      +----------+       +----------+
-| Nanjing |------|  FC-BGP  |------|            |------|  FC-BGP  |-------| Shenzhen |
-+---------+      +----------+      |            |      +----------+       +----------+
-                                   |            |
-                                   +------------+
++------------+           +------------+
+|   Beijing  |           |  Shanghai  |
+| +--------+ |           | +--------+ |
+| | FC-BGP | |    ...    | | FC-BGP | |
+| +--------+ |           | +--------+ |
++------------+           +------------+
+      |                        |
++-------------------------------------+
+|                                     |
+|                FITI                 |
+|              Backbone               |
+|                                     |
++-------------------------------------+
+      |                        |
++------------+           +------------+
+|   Nanjing  |           |  Shenzhen  |
+| +--------+ |           | +--------+ |
+| | FC-BGP | |    ...    | | FC-BGP | |
+| +--------+ |           | +--------+ |
++------------+           +------------+
 ~~~~~~
 {: #fig-rs-x title="FC-BGP Testbed on FITI Infrastructure222."}
 
