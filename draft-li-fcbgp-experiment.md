@@ -68,7 +68,7 @@ author:
       email: guoyangfei@zgclab.edu.cn
 
 normative:
-  FC-BGP-Protocol: draft-wang-sidrops-fcbgp-protocol-03
+  FC-BGP-Protocol: I-D.wang-sidrops-fcbgp-protocol-03
 
 informative:
   RFC4272: # BGP Security Vulnerabilities Analysis
