@@ -69,7 +69,7 @@ author:
 
 normative:
   FC-BGP-Protocol: draft-wang-sidrops-fcbgp-protocol-03
-  
+
 informative:
   RFC4272: # BGP Security Vulnerabilities Analysis
   RFC5065: # Autonomous System Confederations for BGP
