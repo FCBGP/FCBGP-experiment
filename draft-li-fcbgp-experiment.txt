@@ -28,19 +28,6 @@ Abstract
    network.  This document reports on the prototype implementation and
    the results of the evaluation.
 
-   As part of the development of the Forwarding Commitment BGP (FC-BGP)
-   framework, we implemented a FC-BGP prototype and deployed the
-   prototype in the operational networks of 40 Autonomous Systems (ASes)
-   within the Future Internet Technology Infrastructure (FITI).  The
-   evaluation demonstrates that FC-BGP achieves significant performance
-   improvements in large-scale network deployments and that even limited
-   deployment yields substantial security benefits.  This document first
-   describes the prototype solution, then outlines the experimental
-   environment, and finally presents the experimental results.  It is
-   anticipated that this document will provide useful insights for those
-   interested in this subject and serve as preliminary input for future
-   IETF work in this area.
-
 About This Document
 
    This note is to be removed before publishing as an RFC.
@@ -116,6 +103,19 @@ Table of Contents
    that the actual forwarding path conforms to declared routing
    policies, while avoiding the drawbacks of data-plane–based
    cryptographic schemes.
+
+   As part of the development of the Forwarding Commitment BGP (FC-BGP)
+   framework, we implemented a FC-BGP prototype and deployed the
+   prototype in the operational networks of 40 Autonomous Systems (ASes)
+   within the Future Internet Technology Infrastructure (FITI).  The
+   evaluation demonstrates that FC-BGP achieves significant performance
+   improvements in large-scale network deployments and that even limited
+   deployment yields substantial security benefits.  This document first
+   describes the prototype solution, then outlines the experimental
+   environment, and finally presents the experimental results.  It is
+   anticipated that this document will provide useful insights for those
+   interested in this subject and serve as preliminary input for future
+   IETF work in this area.
 
 2.  Conventions and Definitions
 
