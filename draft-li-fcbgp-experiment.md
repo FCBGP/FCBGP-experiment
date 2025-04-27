@@ -68,8 +68,21 @@ author:
       email: guoyangfei@zgclab.edu.cn
 
 normative:
-
+FC-BGP Protocol Specification：draft-wang-sidrops-fcbgp-protocol-03
 informative:
+  RFC4272: # BGP Security Vulnerabilities Analysis
+  RFC5065: # Autonomous System Confederations for BGP
+  RFC5492: # Capabilities Advertisement with BGP-4
+  RFC6472: # Recommendation for Not Using AS_SET and AS_CONFED_SET in BGP
+  RFC6811: # BGP Prefix Origin Validation
+  RFC7132: # Threat Model for BGP Path Security
+  RFC7607: # Codification of AS 0 Processing
+  RFC7908: # Route Leaks Definition and Classification
+  Deprecation-AS_SET-AS_CONFED_SET: I-D.ietf-idr-deprecate-as-set-confed-set # Deprecation of AS_SET and AS_CONFED_SET in BGP
+  FC-ARXIV:
+    title: "Secure Inter-domain Routing and Forwarding via Verifiable Forwarding Commitments"
+    date: Sep. 23, 2023
+    target: https://arxiv.org/abs/2309.13271
 
 --- abstract
 
