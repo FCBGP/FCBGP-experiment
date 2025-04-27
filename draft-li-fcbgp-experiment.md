@@ -79,7 +79,6 @@ informative:
   RFC7132: # Threat Model for BGP Path Security
   RFC7607: # Codification of AS 0 Processing
   RFC7908: # Route Leaks Definition and Classification
-  Deprecation-AS_SET-AS_CONFED_SET: I-D.ietf-idr-deprecate-as-set-confed-set # Deprecation of AS_SET and AS_CONFED_SET in BGP
   FC-ARXIV:
     title: "Secure Inter-domain Routing and Forwarding via Verifiable Forwarding Commitments"
     date: Sep. 23, 2023
