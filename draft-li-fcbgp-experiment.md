@@ -238,8 +238,7 @@ Given a deployment rate r, we randomly select the r% ASes to upgrade any one of 
 
 # Security Considerations
 
-See {{FC-BGP-Protocol}} and {{FC-ARXIV}} for detailed security considerations.
-
+The purpose of this document is to report FC-BGP testbed and experimental results. Security considerations related to the solution mechanisms are discussed in {{FC-BGP-Protocol}} and {{FC-ARXIV}} for details.
 
 # IANA Considerations
 
