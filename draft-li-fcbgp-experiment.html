@@ -1202,13 +1202,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-fc-bgp-testbed" class="internal xref">FC-BGP Testbed</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-fiti" class="internal xref">FITI</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-fiti" class="internal xref">FITI</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-fc-bgp-testbed-on-fiti-infr" class="internal xref">FC-BGP Testbed on FITI Infrastructure</a></p>
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-fc-bgp-testbed-on-fiti-infr" class="internal xref">FC-BGP Testbed on FITI Infrastructure</a></p>
 </li>
             </ul>
 </li>
@@ -1411,31 +1408,26 @@ Fills in the Signature and other required FC fields.<a href="#section-3.5-2.2.4"
       <h2 id="name-fc-bgp-testbed">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-fc-bgp-testbed" class="section-name selfRef">FC-BGP Testbed</a>
       </h2>
-<div id="implementation-status">
-<section id="section-4.1">
-        <h3 id="name-implementation-status">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
-        </h3>
-<p id="section-4.1-1">We implement the FC-BGP mechanism with FRR version 9.0.1. The implementation includes verifying the FC path attribute upon receiving BGP UPDATE messages and adding and signing the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">GitHub repository: https://github.com/fcbgp/fcbgp-impl<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="fiti">
-<section id="section-4.2">
+<section id="section-4.1">
         <h3 id="name-fiti">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-fiti" class="section-name selfRef">FITI</a>
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-fiti" class="section-name selfRef">FITI</a>
         </h3>
-<p id="section-4.2-1">The prototypes of our solutions for FC-BGP are implemented and tested on FITI (Future Internet Technology Infrastructure). FITI is a major Chinese science and technology infrastructure investment, which is now under construction and operation by 40 universities, including the National Development and Reform Commission, the Ministry of Education and Tsinghua University. FITI holds 4096 Autonomous System Numbers (ASNs) assigned by APNIC, along with a 240a:a000::/20 IPv6 address block. With sites distributed across China, it features a genuine internet environment suitable for large-scale network experimentation. FITI supports a maximum bandwidth of up to 1.2 Tbps.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The prototypes of our solutions for FC-BGP are implemented and tested on Future Internet Technology Infrastructure（FITI）. FFITI is a major scientific and technological infrastructure project in China, constructed and operated by the National Development and Reform Commission, the Ministry of Education, Tsinghua University, and other participating universities. The FITI high-performance backbone network connects 40 universities across 35 cities in 31 provinces, autonomous regions, and municipalities, with backbone links supporting bandwidths of up to 1.2 Tbps. FITI has been assigned 4096 Autonomous System Numbers (ASNs) by APNIC, along with a 240a:a000::/20 IPv6 address block. With geographically distributed sites across China, FITI provides a genuine internet environment suitable for large-scale network experimentation.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fc-bgp-testbed-on-fiti-infrastructure">
-<section id="section-4.3">
+<section id="section-4.2">
         <h3 id="name-fc-bgp-testbed-on-fiti-infr">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-fc-bgp-testbed-on-fiti-infr" class="section-name selfRef">FC-BGP Testbed on FITI Infrastructure</a>
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-fc-bgp-testbed-on-fiti-infr" class="section-name selfRef">FC-BGP Testbed on FITI Infrastructure</a>
         </h3>
+<p id="section-4.2-1">The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in <a href="#fig-rs-x" class="auto internal xref">Figure 2</a>. FITI provides 40 Autonomous Systems (ASes), with each AS based on specific sites using H3C CR16000 or CR19000 router. These ASes are capable of providing multiple routers and have real physical and geographic relationships. The ASes interconnect and support BGP, allowing for the configuration of custom routing policies.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">The FC-BGP mechanism is implemented using FRR version 9.0.1. This implementation includes the verification of the FC path attribute upon receiving BGP UPDATE messages and the addition and signing of the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">Following software updates, all ASes now support FC-BGP. The testbed is fully capable of performing functional testing for the FC-BGP solution.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">GitHub repository: https://github.com/fcbgp/fcbgp-impl<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <span id="name-fc-bgp-testbed-on-fiti-infra"></span><div id="fig-rs-x">
 <figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-4.3-1.1">
+          <div class="alignLeft art-text artwork" id="section-4.2-5.1">
 <pre>
         +------------+           +------------+
         |   Beijing  |           |  Shanghai  |
