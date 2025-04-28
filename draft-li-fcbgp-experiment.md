@@ -134,6 +134,11 @@ When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the
    1.1 Sets the Previous AS Number (PASN) to 0 (NULL).
    1.2 Sets the Current AS Number (CASN) to 65536.
    1.3 Sets the Next AS Number (NASN) to 65537.
+   
+1. Constructs the FC segment:
+   1.1 Sets the Previous AS Number (PASN) to 0 (NULL).
+   1.2 Sets the Current AS Number (CASN) to 65536.
+   1.3 Sets the Next AS Number (NASN) to 65537.
 2. Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).
 3. Constructs the FC Path attribute by embedding the newly generated FC segment.
 4. Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.
