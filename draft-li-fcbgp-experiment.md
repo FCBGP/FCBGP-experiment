@@ -116,8 +116,6 @@ This section describes a prototype implementation of Forwarding Commitment BGP (
 
 In this example, all Autonomous Systems (ASes) are standard ASes; Route Servers (RSes) and AS Confederations are not considered. Additionally, no AS Path Protection (ASPP) mechanisms are applied.
 
-## FC-BGP UPDATE Propagation
-
 For the purposes of discussion, it is assumed that:
 
 1. AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.
