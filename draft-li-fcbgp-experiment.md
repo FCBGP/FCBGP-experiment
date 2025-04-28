@@ -194,15 +194,15 @@ For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in
 
 ## FITI
 
-The prototypes of our solutions for FC-BGP are implemented and tested on Future Internet Technology Infrastructure（FITI）. FFITI is a major scientific and technological infrastructure project in China, constructed and operated by the National Development and Reform Commission, the Ministry of Education, Tsinghua University, and other participating universities. The FITI high-performance backbone network connects 40 universities across 35 cities in 31 provinces, autonomous regions, and municipalities, with backbone links supporting bandwidths of up to 1.2 Tbps. FITI has been assigned 4096 Autonomous System Numbers (ASNs) by APNIC, along with a 240a:a000::/20 IPv6 address block. With geographically distributed sites across China, FITI provides a genuine internet environment suitable for large-scale network experimentation.
+The prototypes of our solutions for FC-BGP are implemented and tested on Future Internet Technology Infrastructure（FITI）. FITI is a major scientific and technological infrastructure project in China, constructed and operated by the National Development and Reform Commission, the Ministry of Education, Tsinghua University, and other participating universities. The FITI high-performance backbone network connects 40 universities across 35 cities in 31 provinces, autonomous regions, and municipalities, with backbone links supporting bandwidths of up to 1.2 Tbps. FITI has been assigned 4096 Autonomous System Numbers (ASNs) by APNIC, along with a 240a:a000::/20 IPv6 address block. With geographically distributed sites across China, FITI provides a genuine internet environment suitable for large-scale network experimentation.
 
 ## FC-BGP Testbed on FITI Infrastructure
 
-The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in {{fig-rs-x}}. FITI provides 40 Autonomous Systems (ASes), with each AS based on specific sites using H3C CR16000 or CR19000 router. These ASes are capable of providing multiple routers and have real physical and geographic relationships. The ASes interconnect and support BGP, allowing for the configuration of custom routing policies.
+The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in {{fig-rs-x}}. FITI provides 40 Autonomous Systems (ASes). These ASes are capable of providing multiple routers and have real physical and geographic relationships. 
 
-The FC-BGP mechanism is implemented using FRR version 9.0.1. This implementation includes the verification of the FC path attribute upon receiving BGP UPDATE messages and the addition and signing of the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.
+The FC-BGP mechanism is implemented using FRRouting version 10.2. This implementation includes the verification of the FC path attribute upon receiving BGP UPDATE messages and the addition and signing of the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.
 
-Following software updates, all ASes now support FC-BGP. The testbed is fully capable of performing functional testing for the FC-BGP solution.
+Following software updates, the testbed is fully capable of performing functional testing for the FC-BGP solution.
 
 GitHub repository: https://github.com/fcbgp/fcbgp-impl
 
@@ -238,7 +238,7 @@ Given a deployment rate r, we randomly select the r% ASes to upgrade any one of 
 
 # Security Considerations
 
-TODO Security
+See {{FC-BGP-Protocol}} and {{FC-ARXIV}} for detailed security considerations.
 
 
 # IANA Considerations
