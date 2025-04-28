@@ -236,6 +236,13 @@ Utilizing public datasets from RouteViews, we performed Internet BGP topology re
 
 Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP and BGPsec. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the origin hijacking rate at the current deployment rate r. We obtained the experimental result: With a deployment rate of only 10%, over 70% of Internet BGP paths can be protected.
 
+# Conclusion
+In conclusion, experimental results demonstrate that：
+
+1. FC-BGP offers efficient and scalable path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.
+2. Incremental deployment is another design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.
+3. FC-BGP is highly adaptable to diverse network environments, supporting ISP policy enforcement and multipath routing, thus confirming its practicality and feasibility for large-scale deployment on the Internet.
+
 # Security Considerations
 
 The purpose of this document is to report FC-BGP testbed and experimental results. Security considerations related to the solution mechanisms are discussed in {{FC-BGP-Protocol}} and {{FC-ARXIV}} for details.
