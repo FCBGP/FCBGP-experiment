@@ -198,7 +198,7 @@ The prototypes of our solutions for FC-BGP are implemented and tested on Future 
 
 ## FC-BGP Testbed on FITI Infrastructure
 
-The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in {{fig-rs-x}}. FITI provides 40 Autonomous Systems (ASes). These ASes are capable of providing multiple routers and have real physical and geographic relationships. 
+The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in {{fig-rs-x}}. FITI provides 40 Autonomous Systems (ASes). These ASes are capable of providing multiple routers and have real physical and geographic relationships.
 
 The FC-BGP mechanism is implemented using FRRouting version 10.2. This implementation includes the verification of the FC path attribute upon receiving BGP UPDATE messages and the addition and signing of the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.
 
