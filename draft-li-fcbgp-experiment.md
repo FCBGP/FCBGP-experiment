@@ -161,7 +161,7 @@ If the signature matches, the AS hop from 65536 to 65537 is considered verified.
 
 If AS 65537 does not support FC-BGP, its BGP speaker MUST propagate the UPDATE message without validating the FC Path attribute.
 
-## FC Verification at the Receiving AS
+## Per-Neighbor UPDATE Generation
 
 An FC-BGP speaker MUST generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message MUST announce only a single IP prefix and MUST NOT aggregate multiple prefixes.
 
@@ -169,9 +169,9 @@ This restriction is necessary because different prefixes may follow different ro
 
 Thus, AS 65537 generates:
 
-    An UPDATE message for AS 65538 with NASN set to 65538.
+An UPDATE message for AS 65538 with NASN set to 65538.
 
-    A separate UPDATE message for AS 65539 with NASN set to 65539.
+A separate UPDATE message for AS 65539 with NASN set to 65539.
 
 ## FC Generation at Intermediate ASes
 
@@ -206,26 +206,26 @@ The prototypes of our solutions for FC-BGP are implemented and tested on FITI (F
 ## FC-BGP Testbed on FITI Infrastructure
 
 ~~~~~~
-+------------+           +------------+
-|   Beijing  |           |  Shanghai  |
-| +--------+ |           | +--------+ |
-| | FC-BGP | |    ...    | | FC-BGP | |
-| +--------+ |           | +--------+ |
-+------------+           +------------+
-      |                        |
-+-------------------------------------+
-|                                     |
-|                FITI                 |
-|              Backbone               |
-|                                     |
-+-------------------------------------+
-      |                        |
-+------------+           +------------+
-|   Nanjing  |           |  Shenzhen  |
-| +--------+ |           | +--------+ |
-| | FC-BGP | |    ...    | | FC-BGP | |
-| +--------+ |           | +--------+ |
-+------------+           +------------+
+        +------------+           +------------+
+        |   Beijing  |           |  Shanghai  |
+        | +--------+ |           | +--------+ |
+        | | FC-BGP | |    ...    | | FC-BGP | |
+        | +--------+ |           | +--------+ |
+        +------------+           +------------+
+              |                        |
+        +-------------------------------------+
+        |                                     |
+        |                FITI                 |
+        |              Backbone               |
+        |                                     |
+        +-------------------------------------+
+              |                        |
+        +------------+           +------------+
+        |   Nanjing  |           |  Shenzhen  |
+        | +--------+ |           | +--------+ |
+        | | FC-BGP | |    ...    | | FC-BGP | |
+        | +--------+ |           | +--------+ |
+        +------------+           +------------+
 ~~~~~~
 {: #fig-rs-x title="FC-BGP Testbed on FITI Infrastructure."}
 
