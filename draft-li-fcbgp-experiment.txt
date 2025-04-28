@@ -5,13 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 29 October 2025                                           Q. Li
+Expires: 30 October 2025                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
                                                                    Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                           27 April 2025
+                                                           28 April 2025
 
 
       Forwarding Commitment BGP Testbed and Deployment Experience
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 October 2025.
+   This Internet-Draft will expire on 30 October 2025.
 
 Copyright Notice
 
@@ -168,13 +168,17 @@ Table of Contents
        to 0 (NULL). 1.2 Sets the Current AS Number (CASN) to 65536. 1.3
        Sets the Next AS Number (NASN) to 65537.
 
-   2.  Computes the signature over the tuple (PASN, CASN, NASN, IP
+   2.  Constructs the FC segment: 1.1 Sets the Previous AS Number (PASN)
+       to 0 (NULL). 1.2 Sets the Current AS Number (CASN) to 65536. 1.3
+       Sets the Next AS Number (NASN) to 65537.
+
+   3.  Computes the signature over the tuple (PASN, CASN, NASN, IP
        Prefix Address, IP Prefix Length).
 
-   3.  Constructs the FC Path attribute by embedding the newly generated
+   4.  Constructs the FC Path attribute by embedding the newly generated
        FC segment.
 
-   4.  Encapsulates the route announcement in a BGP UPDATE message and
+   5.  Encapsulates the route announcement in a BGP UPDATE message and
        transmits it to AS 65537.
 
 4.  FC-BGP Testbed

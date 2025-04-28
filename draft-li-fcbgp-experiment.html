@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Xu, et al.</td>
-<td class="center">Expires 29 October 2025</td>
+<td class="center">Expires 30 October 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-li-fcbgp-experiment-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-04-27" class="published">27 April 2025</time>
+<time datetime="2025-04-28" class="published">28 April 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-10-29">29 October 2025</time></dd>
+<dd class="expires"><time datetime="2025-10-30">30 October 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1143,7 +1143,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 October 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1298,13 +1298,19 @@ AS(65536) --&gt; AS(65537) --&gt; AS(65538)
 1.3 Sets the Next AS Number (NASN) to 65537.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.2-2.2">
-            <p id="section-3.2-2.2.1">Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.2.1">Constructs the FC segment:
+1.1 Sets the Previous AS Number (PASN) to 0 (NULL).
+1.2 Sets the Current AS Number (CASN) to 65536.
+1.3 Sets the Next AS Number (NASN) to 65537.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.2-2.3">
-            <p id="section-3.2-2.3.1">Constructs the FC Path attribute by embedding the newly generated FC segment.<a href="#section-3.2-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.3.1">Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.2-2.4">
-            <p id="section-3.2-2.4.1">Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.<a href="#section-3.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.4.1">Constructs the FC Path attribute by embedding the newly generated FC segment.<a href="#section-3.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.2-2.5">
+            <p id="section-3.2-2.5.1">Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.<a href="#section-3.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>
