@@ -311,6 +311,11 @@ Table of Contents
 
 5.  Test Experience and Results
 
+   The prototype implementation of FC-BGP, as outlined in Section 2, has
+   been deployed on the testbed described in Section 3.  All solutions
+   have been successfully tested, as described in the test experience
+   and results presented in this section.
+
    Utilizing public datasets from RouteViews, we performed Internet BGP
    topology reconstruction and BGP announcement replay on the Testbed.
    Simultaneously, we adjusted the deployment ratio of FC-BGP to
