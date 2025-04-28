@@ -257,7 +257,7 @@ Table of Contents
 4.1.  FITI
 
    The prototypes of our solutions for FC-BGP are implemented and tested
-   on Future Internet Technology Infrastructure（FITI）. FFITI is a major
+   on Future Internet Technology Infrastructure（FITI）. FITI is a major
    scientific and technological infrastructure project in China,
    constructed and operated by the National Development and Reform
    Commission, the Ministry of Education, Tsinghua University, and other
@@ -273,23 +273,19 @@ Table of Contents
 4.2.  FC-BGP Testbed on FITI Infrastructure
 
    The FC-BGP testbed is deployed on the FITI backbone network，as
-   illustrated in Figure 2.  FITI provides 40 Autonomous Systems (ASes),
-   with each AS based on specific sites using H3C CR16000 or CR19000
-   router.  These ASes are capable of providing multiple routers and
-   have real physical and geographic relationships.  The ASes
-   interconnect and support BGP, allowing for the configuration of
-   custom routing policies.
+   illustrated in Figure 2.  FITI provides 40 Autonomous Systems (ASes).
+   These ASes are capable of providing multiple routers and have real
+   physical and geographic relationships.
 
-   The FC-BGP mechanism is implemented using FRR version 9.0.1.  This
-   implementation includes the verification of the FC path attribute
-   upon receiving BGP UPDATE messages and the addition and signing of
-   the FC path attribute when sending BGP UPDATE messages.  The
-   development and testing of this implementation were conducted on
+   The FC-BGP mechanism is implemented using FRRouting version 10.2.
+   This implementation includes the verification of the FC path
+   attribute upon receiving BGP UPDATE messages and the addition and
+   signing of the FC path attribute when sending BGP UPDATE messages.
+   The development and testing of this implementation were conducted on
    Ubuntu 22.04 with OpenSSL 3.X installed.
 
-   Following software updates, all ASes now support FC-BGP.  The testbed
-   is fully capable of performing functional testing for the FC-BGP
-   solution.
+   Following software updates, the testbed is fully capable of
+   performing functional testing for the FC-BGP solution.
 
    GitHub repository: https://github.com/fcbgp/fcbgp-impl
 
@@ -336,7 +332,10 @@ Table of Contents
 
 6.  Security Considerations
 
-   TODO Security
+   The purpose of this document is to report FC-BGP testbed and
+   experimental results.  Security considerations related to the
+   solution mechanisms are discussed in [FC-BGP-Protocol] and [FC-ARXIV]
+   for details.
 
 7.  IANA Considerations
 
