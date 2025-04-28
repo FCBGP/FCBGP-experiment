@@ -130,7 +130,7 @@ An FC-BGP speaker SHOULD propagate an FC-BGP UPDATE message to its downstream ne
 When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the following steps:
 
 1. Constructs the FC segment:
-   
+
    Sets the Previous AS Number (PASN) to 0 (NULL).
 
    Sets the Current AS Number (CASN) to 65536.
@@ -149,7 +149,7 @@ Upon receiving the UPDATE message, the FC-BGP speaker in AS 65537:
 2. Retrieves the list of FC segments.
 3. Identifies the FC segment where CASN == 65536.
 4. Verifies that:
-   
+
    PASN == 0.
 
    NASN == 65537.
