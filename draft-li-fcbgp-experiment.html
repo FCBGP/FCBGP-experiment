@@ -1182,19 +1182,16 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-a-prototype-fc-bgp-implemen" class="internal xref">A Prototype FC-BGP Implementation</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-fc-bgp-update-propagation" class="internal xref">FC-BGP UPDATE Propagation</a></p>
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-fc-generation-at-the-origin" class="internal xref">FC Generation at the Originating AS</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-fc-generation-at-the-origin" class="internal xref">FC Generation at the Originating AS</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-fc-verification-at-the-rece" class="internal xref">FC Verification at the Receiving AS</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-fc-verification-at-the-rece" class="internal xref">FC Verification at the Receiving AS</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-per-neighbor-update-generat" class="internal xref">Per-Neighbor UPDATE Generation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-per-neighbor-update-generat" class="internal xref">Per-Neighbor UPDATE Generation</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-fc-generation-at-intermedia" class="internal xref">FC Generation at Intermediate ASes</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-fc-generation-at-intermedia" class="internal xref">FC Generation at Intermediate ASes</a></p>
 </li>
             </ul>
 </li>
@@ -1279,124 +1276,117 @@ AS(65536) --&gt; AS(65537) --&gt; AS(65538)
 </div>
 <p id="section-3-2">This section describes a prototype implementation of Forwarding Commitment BGP (FC-BGP), using a simplified topology as illustrated in <a href="#fig-atta-ex" class="auto internal xref">Figure 1</a>. Only the essential operations are highlighted here; readers are referred to <span>[<a href="#FC-BGP-Protocol" class="cite xref">FC-BGP-Protocol</a>]</span> for the complete protocol specification.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">In this example, all Autonomous Systems (ASes) are standard ASes; Route Servers (RSes) and AS Confederations are not considered. Additionally, no AS Path Protection (ASPP) mechanisms are applied.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<div id="fc-bgp-update-propagation">
+<p id="section-3-4">For the purposes of discussion, it is assumed that:<a href="#section-3-4" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3-5">
+<li id="section-3-5.1">
+          <p id="section-3-5.1.1">AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-3-5.2">
+          <p id="section-3-5.2.1">AS 65537 then propagates the route to AS 65538 and AS 65539.<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+<p id="section-3-6">An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to its downstream neighbors only after completing validation of the Forwarding Commitments (FCs) and performing best path selection according to the standard BGP decision process.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<div id="fc-generation-at-the-originating-as">
 <section id="section-3.1">
-        <h3 id="name-fc-bgp-update-propagation">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-fc-bgp-update-propagation" class="section-name selfRef">FC-BGP UPDATE Propagation</a>
+        <h3 id="name-fc-generation-at-the-origin">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-fc-generation-at-the-origin" class="section-name selfRef">FC Generation at the Originating AS</a>
         </h3>
-<p id="section-3.1-1">For the purposes of discussion, it is assumed that:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the following steps:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-2">
 <li id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">Constructs the FC segment:<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.2">
+Sets the Previous AS Number (PASN) to 0 (NULL).<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.3">
+Sets the Current AS Number (CASN) to 65536.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.4">
+Sets the Next AS Number (NASN) to 65537.<a href="#section-3.1-2.1.4" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">AS 65537 then propagates the route to AS 65538 and AS 65539.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        </ol>
-<p id="section-3.1-3">An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to its downstream neighbors only after completing validation of the Forwarding Commitments (FCs) and performing best path selection according to the standard BGP decision process.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="fc-generation-at-the-originating-as">
-<section id="section-3.2">
-        <h3 id="name-fc-generation-at-the-origin">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-fc-generation-at-the-origin" class="section-name selfRef">FC Generation at the Originating AS</a>
-        </h3>
-<p id="section-3.2-1">When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the following steps:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.2-2">
-<li id="section-3.2-2.1">
-            <p id="section-3.2-2.1.1">Constructs the FC segment:<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2.1.2">
-Sets the Previous AS Number (PASN) to 0 (NULL).<a href="#section-3.2-2.1.2" class="pilcrow">¶</a></p>
-<p id="section-3.2-2.1.3">
-Sets the Current AS Number (CASN) to 65536.<a href="#section-3.2-2.1.3" class="pilcrow">¶</a></p>
-<p id="section-3.2-2.1.4">
-Sets the Next AS Number (NASN) to 65537.<a href="#section-3.2-2.1.4" class="pilcrow">¶</a></p>
+          <li id="section-3.1-2.3">
+            <p id="section-3.1-2.3.1">Constructs the FC Path attribute by embedding the newly generated FC segment.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.2-2.2">
-            <p id="section-3.2-2.2.1">Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="section-3.2-2.3">
-            <p id="section-3.2-2.3.1">Constructs the FC Path attribute by embedding the newly generated FC segment.<a href="#section-3.2-2.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="section-3.2-2.4">
-            <p id="section-3.2-2.4.1">Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.<a href="#section-3.2-2.4.1" class="pilcrow">¶</a></p>
+          <li id="section-3.1-2.4">
+            <p id="section-3.1-2.4.1">Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>
 </div>
 <div id="fc-verification-at-the-receiving-as">
-<section id="section-3.3">
+<section id="section-3.2">
         <h3 id="name-fc-verification-at-the-rece">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-fc-verification-at-the-rece" class="section-name selfRef">FC Verification at the Receiving AS</a>
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-fc-verification-at-the-rece" class="section-name selfRef">FC Verification at the Receiving AS</a>
         </h3>
-<p id="section-3.3-1">Upon receiving the UPDATE message, the FC-BGP speaker in AS 65537:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.3-2">
-<li id="section-3.3-2.1">
-            <p id="section-3.3-2.1.1">Extracts the FC Path attribute.<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">Upon receiving the UPDATE message, the FC-BGP speaker in AS 65537:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.2-2">
+<li id="section-3.2-2.1">
+            <p id="section-3.2-2.1.1">Extracts the FC Path attribute.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.3-2.2">
-            <p id="section-3.3-2.2.1">Retrieves the list of FC segments.<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.2">
+            <p id="section-3.2-2.2.1">Retrieves the list of FC segments.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.3-2.3">
-            <p id="section-3.3-2.3.1">Identifies the FC segment where CASN == 65536.<a href="#section-3.3-2.3.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.3">
+            <p id="section-3.2-2.3.1">Identifies the FC segment where CASN == 65536.<a href="#section-3.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.3-2.4">
-            <p id="section-3.3-2.4.1">Verifies that:<a href="#section-3.3-2.4.1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2.4.2">
-PASN == 0.<a href="#section-3.3-2.4.2" class="pilcrow">¶</a></p>
-<p id="section-3.3-2.4.3">
-NASN == 65537.<a href="#section-3.3-2.4.3" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.4">
+            <p id="section-3.2-2.4.1">Verifies that:<a href="#section-3.2-2.4.1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2.4.2">
+PASN == 0.<a href="#section-3.2-2.4.2" class="pilcrow">¶</a></p>
+<p id="section-3.2-2.4.3">
+NASN == 65537.<a href="#section-3.2-2.4.3" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.3-2.5">
-            <p id="section-3.3-2.5.1">Retrieves the corresponding public key using the Subject Key Identifier (SKI) field.<a href="#section-3.3-2.5.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.5">
+            <p id="section-3.2-2.5.1">Retrieves the corresponding public key using the Subject Key Identifier (SKI) field.<a href="#section-3.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.3-2.6">
-            <p id="section-3.3-2.6.1">Verifies the signature using the algorithm indicated by the Algorithm ID field.<a href="#section-3.3-2.6.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.6">
+            <p id="section-3.2-2.6.1">Verifies the signature using the algorithm indicated by the Algorithm ID field.<a href="#section-3.2-2.6.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-3.3-3">If the signature matches, the AS hop from 65536 to 65537 is considered verified. This process repeats for each FC segment corresponding to the AS_PATH entries if applicable.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">If AS 65537 does not support FC-BGP, its BGP speaker <span class="bcp14">MUST</span> propagate the UPDATE message without validating the FC Path attribute.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">If the signature matches, the AS hop from 65536 to 65537 is considered verified. This process repeats for each FC segment corresponding to the AS_PATH entries if applicable.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">If AS 65537 does not support FC-BGP, its BGP speaker <span class="bcp14">MUST</span> propagate the UPDATE message without validating the FC Path attribute.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="per-neighbor-update-generation">
-<section id="section-3.4">
+<section id="section-3.3">
         <h3 id="name-per-neighbor-update-generat">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-per-neighbor-update-generat" class="section-name selfRef">Per-Neighbor UPDATE Generation</a>
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-per-neighbor-update-generat" class="section-name selfRef">Per-Neighbor UPDATE Generation</a>
         </h3>
-<p id="section-3.4-1">An FC-BGP speaker <span class="bcp14">MUST</span> generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message <span class="bcp14">MUST</span> announce only a single IP prefix and <span class="bcp14">MUST NOT</span> aggregate multiple prefixes.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">This restriction is necessary because different prefixes may follow different routing policies, resulting in different Forwarding Commitments. Aggregating prefixes could cause errors in FC generation and validation.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
-<p id="section-3.4-3">Thus, AS 65537 generates:<a href="#section-3.4-3" class="pilcrow">¶</a></p>
-<p id="section-3.4-4">An UPDATE message for AS 65538 with NASN set to 65538.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
-<p id="section-3.4-5">A separate UPDATE message for AS 65539 with NASN set to 65539.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">An FC-BGP speaker <span class="bcp14">MUST</span> generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message <span class="bcp14">MUST</span> announce only a single IP prefix and <span class="bcp14">MUST NOT</span> aggregate multiple prefixes.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">This restriction is necessary because different prefixes may follow different routing policies, resulting in different Forwarding Commitments. Aggregating prefixes could cause errors in FC generation and validation.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">Thus, AS 65537 generates:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">An UPDATE message for AS 65538 with NASN set to 65538.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">A separate UPDATE message for AS 65539 with NASN set to 65539.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fc-generation-at-intermediate-ases">
-<section id="section-3.5">
+<section id="section-3.4">
         <h3 id="name-fc-generation-at-intermedia">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-fc-generation-at-intermedia" class="section-name selfRef">FC Generation at Intermediate ASes</a>
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-fc-generation-at-intermedia" class="section-name selfRef">FC Generation at Intermediate ASes</a>
         </h3>
-<p id="section-3.5-1">For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in AS 65537:<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.5-2">
-<li id="section-3.5-2.1">
-            <p id="section-3.5-2.1.1">Encapsulates the route prefix into a single UPDATE message.<a href="#section-3.5-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in AS 65537:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.4-2">
+<li id="section-3.4-2.1">
+            <p id="section-3.4-2.1.1">Encapsulates the route prefix into a single UPDATE message.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.5-2.2">
-            <p id="section-3.5-2.2.1">Constructs a new FC segment:<a href="#section-3.5-2.2.1" class="pilcrow">¶</a></p>
-<p id="section-3.5-2.2.2">
-Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.5-2.2.2" class="pilcrow">¶</a></p>
-<p id="section-3.5-2.2.3">
-Signs the digest using ECDSA.<a href="#section-3.5-2.2.3" class="pilcrow">¶</a></p>
-<p id="section-3.5-2.2.4">
-Fills in the Signature and other required FC fields.<a href="#section-3.5-2.2.4" class="pilcrow">¶</a></p>
+          <li id="section-3.4-2.2">
+            <p id="section-3.4-2.2.1">Constructs a new FC segment:<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2.2.2">
+Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.4-2.2.2" class="pilcrow">¶</a></p>
+<p id="section-3.4-2.2.3">
+Signs the digest using ECDSA.<a href="#section-3.4-2.2.3" class="pilcrow">¶</a></p>
+<p id="section-3.4-2.2.4">
+Fills in the Signature and other required FC fields.<a href="#section-3.4-2.2.4" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.5-2.3">
-            <p id="section-3.5-2.3.1">Prepends the newly created FC segment to the existing FC List.<a href="#section-3.5-2.3.1" class="pilcrow">¶</a></p>
+          <li id="section-3.4-2.3">
+            <p id="section-3.4-2.3.1">Prepends the newly created FC segment to the existing FC List.<a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.5-2.4">
-            <p id="section-3.5-2.4.1">Completes the FC Path attribute.<a href="#section-3.5-2.4.1" class="pilcrow">¶</a></p>
+          <li id="section-3.4-2.4">
+            <p id="section-3.4-2.4.1">Completes the FC Path attribute.<a href="#section-3.4-2.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.5-2.5">
-            <p id="section-3.5-2.5.1">Continues with standard BGP UPDATE processing and transmission.<a href="#section-3.5-2.5.1" class="pilcrow">¶</a></p>
+          <li id="section-3.4-2.5">
+            <p id="section-3.4-2.5.1">Continues with standard BGP UPDATE processing and transmission.<a href="#section-3.4-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>

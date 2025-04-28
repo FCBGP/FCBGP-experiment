@@ -76,11 +76,10 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  A Prototype FC-BGP Implementation
-     3.1.  FC-BGP UPDATE Propagation
-     3.2.  FC Generation at the Originating AS
-     3.3.  FC Verification at the Receiving AS
-     3.4.  Per-Neighbor UPDATE Generation
-     3.5.  FC Generation at Intermediate ASes
+     3.1.  FC Generation at the Originating AS
+     3.2.  FC Verification at the Receiving AS
+     3.3.  Per-Neighbor UPDATE Generation
+     3.4.  FC Generation at Intermediate ASes
    4.  FC-BGP Testbed
      4.1.  FITI
      4.2.  FC-BGP Testbed on FITI Infrastructure
@@ -148,8 +147,6 @@ Table of Contents
    Route Servers (RSes) and AS Confederations are not considered.
    Additionally, no AS Path Protection (ASPP) mechanisms are applied.
 
-3.1.  FC-BGP UPDATE Propagation
-
    For the purposes of discussion, it is assumed that:
 
    1.  AS 65537 receives an FC-BGP UPDATE message for the prefix
@@ -162,7 +159,7 @@ Table of Contents
    Forwarding Commitments (FCs) and performing best path selection
    according to the standard BGP decision process.
 
-3.2.  FC Generation at the Originating AS
+3.1.  FC Generation at the Originating AS
 
    When preparing to propagate a route, the FC-BGP speaker in AS 65536
    performs the following steps:
@@ -184,7 +181,7 @@ Table of Contents
    4.  Encapsulates the route announcement in a BGP UPDATE message and
        transmits it to AS 65537.
 
-3.3.  FC Verification at the Receiving AS
+3.2.  FC Verification at the Receiving AS
 
    Upon receiving the UPDATE message, the FC-BGP speaker in AS 65537:
 
@@ -213,7 +210,7 @@ Table of Contents
    If AS 65537 does not support FC-BGP, its BGP speaker MUST propagate
    the UPDATE message without validating the FC Path attribute.
 
-3.4.  Per-Neighbor UPDATE Generation
+3.3.  Per-Neighbor UPDATE Generation
 
    An FC-BGP speaker MUST generate a distinct UPDATE message for each
    downstream neighbor.  Each UPDATE message MUST announce only a single
@@ -230,7 +227,7 @@ Table of Contents
 
    A separate UPDATE message for AS 65539 with NASN set to 65539.
 
-3.5.  FC Generation at Intermediate ASes
+3.4.  FC Generation at Intermediate ASes
 
    For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP
    speaker in AS 65537:
