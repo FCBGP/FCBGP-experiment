@@ -120,9 +120,8 @@ In this example, all Autonomous Systems (ASes) are standard ASes; Route Servers 
 
 For the purposes of discussion, it is assumed that:
 
-AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.
-
-AS 65537 then propagates the route to AS 65538 and AS 65539.
+1. AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.
+2. AS 65537 then propagates the route to AS 65538 and AS 65539.
 
 An FC-BGP speaker SHOULD propagate an FC-BGP UPDATE message to its downstream neighbors only after completing validation of the Forwarding Commitments (FCs) and performing best path selection according to the standard BGP decision process.
 
@@ -131,17 +130,65 @@ An FC-BGP speaker SHOULD propagate an FC-BGP UPDATE message to its downstream ne
 When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the following steps:
 
 1. Constructs the FC segment:
-   1.1 Sets the Previous AS Number (PASN) to 0 (NULL).
-   1.2 Sets the Current AS Number (CASN) to 65536.
-   1.3 Sets the Next AS Number (NASN) to 65537.
+   
+   Sets the Previous AS Number (PASN) to 0 (NULL).
 
-1. Constructs the FC segment:
-   1.1 Sets the Previous AS Number (PASN) to 0 (NULL).
-   1.2 Sets the Current AS Number (CASN) to 65536.
-   1.3 Sets the Next AS Number (NASN) to 65537.
+   Sets the Current AS Number (CASN) to 65536.
+
+   Sets the Next AS Number (NASN) to 65537.
+
 2. Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).
 3. Constructs the FC Path attribute by embedding the newly generated FC segment.
 4. Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.
+
+## FC Verification at the Receiving AS
+
+Upon receiving the UPDATE message, the FC-BGP speaker in AS 65537:
+
+1. Extracts the FC Path attribute.
+2. Retrieves the list of FC segments.
+3. Identifies the FC segment where CASN == 65536.
+4. Verifies that:
+   
+   PASN == 0.
+
+   NASN == 65537.
+
+5. Retrieves the corresponding public key using the Subject Key Identifier (SKI) field.
+6. Verifies the signature using the algorithm indicated by the Algorithm ID field.
+
+If the signature matches, the AS hop from 65536 to 65537 is considered verified. This process repeats for each FC segment corresponding to the AS_PATH entries if applicable.
+
+If AS 65537 does not support FC-BGP, its BGP speaker MUST propagate the UPDATE message without validating the FC Path attribute.
+
+## FC Verification at the Receiving AS
+
+An FC-BGP speaker MUST generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message MUST announce only a single IP prefix and MUST NOT aggregate multiple prefixes.
+
+This restriction is necessary because different prefixes may follow different routing policies, resulting in different Forwarding Commitments. Aggregating prefixes could cause errors in FC generation and validation.
+
+Thus, AS 65537 generates:
+
+    An UPDATE message for AS 65538 with NASN set to 65538.
+
+    A separate UPDATE message for AS 65539 with NASN set to 65539.
+
+## FC Generation at Intermediate ASes
+
+For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in AS 65537:
+
+1. Encapsulates the route prefix into a single UPDATE message.
+2. Constructs a new FC segment:
+
+   Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).
+
+   Signs the digest using ECDSA.
+
+   Fills in the Signature and other required FC fields.
+
+3. Prepends the newly created FC segment to the existing FC List.
+4. Completes the FC Path attribute.
+5. Continues with standard BGP UPDATE processing and transmission.
 
 # FC-BGP Testbed
 
