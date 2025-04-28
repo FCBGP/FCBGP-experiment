@@ -1191,7 +1191,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-fc-verification-at-the-rece" class="internal xref">FC Verification at the Receiving AS</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-fc-verification-at-the-recei" class="internal xref">FC Verification at the Receiving AS</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-per-neighbor-update-generat" class="internal xref">Per-Neighbor UPDATE Generation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-fc-generation-at-intermedia" class="internal xref">FC Generation at Intermediate ASes</a></p>
@@ -1361,21 +1361,16 @@ NASN == 65537.<a href="#section-3.3-2.4.3" class="pilcrow">¶</a></p>
 <p id="section-3.3-4">If AS 65537 does not support FC-BGP, its BGP speaker <span class="bcp14">MUST</span> propagate the UPDATE message without validating the FC Path attribute.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="fc-verification-at-the-receiving-as-1">
+<div id="per-neighbor-update-generation">
 <section id="section-3.4">
-        <h3 id="name-fc-verification-at-the-recei">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-fc-verification-at-the-recei" class="section-name selfRef">FC Verification at the Receiving AS</a>
+        <h3 id="name-per-neighbor-update-generat">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-per-neighbor-update-generat" class="section-name selfRef">Per-Neighbor UPDATE Generation</a>
         </h3>
 <p id="section-3.4-1">An FC-BGP speaker <span class="bcp14">MUST</span> generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message <span class="bcp14">MUST</span> announce only a single IP prefix and <span class="bcp14">MUST NOT</span> aggregate multiple prefixes.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">This restriction is necessary because different prefixes may follow different routing policies, resulting in different Forwarding Commitments. Aggregating prefixes could cause errors in FC generation and validation.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <p id="section-3.4-3">Thus, AS 65537 generates:<a href="#section-3.4-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4-4">
-<pre>
-An UPDATE message for AS 65538 with NASN set to 65538.
-
-A separate UPDATE message for AS 65539 with NASN set to 65539.
-</pre><a href="#section-3.4-4" class="pilcrow">¶</a>
-</div>
+<p id="section-3.4-4">An UPDATE message for AS 65538 with NASN set to 65538.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<p id="section-3.4-5">A separate UPDATE message for AS 65539 with NASN set to 65539.<a href="#section-3.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fc-generation-at-intermediate-ases">
@@ -1442,26 +1437,26 @@ Fills in the Signature and other required FC fields.<a href="#section-3.5-2.2.4"
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-4.3-1.1">
 <pre>
-+------------+           +------------+
-|   Beijing  |           |  Shanghai  |
-| +--------+ |           | +--------+ |
-| | FC-BGP | |    ...    | | FC-BGP | |
-| +--------+ |           | +--------+ |
-+------------+           +------------+
-      |                        |
-+-------------------------------------+
-|                                     |
-|                FITI                 |
-|              Backbone               |
-|                                     |
-+-------------------------------------+
-      |                        |
-+------------+           +------------+
-|   Nanjing  |           |  Shenzhen  |
-| +--------+ |           | +--------+ |
-| | FC-BGP | |    ...    | | FC-BGP | |
-| +--------+ |           | +--------+ |
-+------------+           +------------+
+        +------------+           +------------+
+        |   Beijing  |           |  Shanghai  |
+        | +--------+ |           | +--------+ |
+        | | FC-BGP | |    ...    | | FC-BGP | |
+        | +--------+ |           | +--------+ |
+        +------------+           +------------+
+              |                        |
+        +-------------------------------------+
+        |                                     |
+        |                FITI                 |
+        |              Backbone               |
+        |                                     |
+        +-------------------------------------+
+              |                        |
+        +------------+           +------------+
+        |   Nanjing  |           |  Shenzhen  |
+        | +--------+ |           | +--------+ |
+        | | FC-BGP | |    ...    | | FC-BGP | |
+        | +--------+ |           | +--------+ |
+        +------------+           +------------+
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
