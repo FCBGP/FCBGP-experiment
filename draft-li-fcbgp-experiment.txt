@@ -255,7 +255,7 @@ Table of Contents
 4.1.  FITI
 
    The prototypes of our solutions for FC-BGP are implemented and tested
-   on Future Internet Technology Infrastructure（FITI）. FITI is a major
+   on Future Internet Technology Infrastructure(FITI).  FITI is a major
    scientific and technological infrastructure project in China,
    constructed and operated by the National Development and Reform
    Commission, the Ministry of Education, Tsinghua University, and other
