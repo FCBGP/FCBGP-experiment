@@ -240,7 +240,7 @@ Given a deployment rate r, we randomly select the r% ASes to upgrade any one of 
 In conclusion, experimental results demonstrate that：
 
 1. FC-BGP offers efficient and scalable path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.
-2. Incremental deployment is another design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.
+2. Incremental deployment is a key design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.
 3. FC-BGP is highly adaptable to diverse network environments, supporting ISP policy enforcement and multipath routing, thus confirming its practicality and feasibility for large-scale deployment on the Internet.
 
 # Security Considerations
