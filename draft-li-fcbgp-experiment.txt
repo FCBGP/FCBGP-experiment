@@ -98,7 +98,7 @@ Table of Contents
    The current inter-domain, hop-by-hop forwarding model lacks end-to-
    end path validation, exposing a broad attack surface and enabling
    risks such as traffic interception, side-channel exploits, and man-
-   in-the-middle attacks.  FC-BGP is a novel forwarding-path
+   in-the-middle attacks[RFC4272].  FC-BGP is a novel forwarding-path
    verification framework designed to address these security challenges
    inherent in today’s inter-domain routing system.  By introducing a
    Forwarding Commitment (FC), FC-BGP offers a solution that integrates
