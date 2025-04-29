@@ -234,7 +234,9 @@ Utilizing public datasets from RouteViews, we reconstructed the Internet BGP top
 
 To assess the impact of partial deployment, we varied the deployment ratio of FC-BGP and measured the resulting network-wide route hijackability rate as the deployment rate increased.
 
+
 Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the origin hijacking rate at the current deployment rate r.
+
 
 The test results are consistent with the expected outcomes. In a fully deployed FC-BGP network, an adversary cannot falsely claim the authenticity of a non-existent path by strategically combining FCs messages. Under partial deployment, the experimental results show that with a deployment rate of only 10%, more than 70% of Internet BGP paths can be protected.
 
