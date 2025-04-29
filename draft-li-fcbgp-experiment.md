@@ -78,7 +78,6 @@ informative:
   RFC6811: # BGP Prefix Origin Validation
   RFC7132: # Threat Model for BGP Path Security
   RFC7607: # Codification of AS 0 Processing
-  RFC7908: # Route Leaks Definition and Classification
   FC-ARXIV:
     title: "Secure Inter-domain Routing and Forwarding via Verifiable Forwarding Commitments"
     date: Sep. 23, 2023
