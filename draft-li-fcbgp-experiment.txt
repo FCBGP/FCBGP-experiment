@@ -84,13 +84,12 @@ Table of Contents
      4.1.  FITI
      4.2.  FC-BGP Testbed on FITI Infrastructure
    5.  Test Experience and Results
-   6.  Test Results
-   7.  Conclusion
-   8.  Security Considerations
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   6.  Conclusion
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -341,9 +340,7 @@ Table of Contents
    that with a deployment rate of only 10%, more than 70% of Internet
    BGP paths can be protected.
 
-6.  Test Results
-
-7.  Conclusion
+6.  Conclusion
 
    In conclusion, experimental results demonstrate that：
 
@@ -363,20 +360,20 @@ Table of Contents
        confirming its practicality and feasibility for large-scale
        deployment on the Internet.
 
-8.  Security Considerations
+7.  Security Considerations
 
    The purpose of this document is to report FC-BGP testbed and
    experimental results.  Security considerations related to the
    solution mechanisms are discussed in [FC-BGP-Protocol] and [FC-ARXIV]
    for details.
 
-9.  IANA Considerations
+8.  IANA Considerations
 
    This document has no IANA actions.
 
-10.  References
+9.  References
 
-10.1.  Normative References
+9.1.  Normative References
 
    [FC-BGP-Protocol]
               Xu, K., Wang, X., liu, Z., Qi, L., Wu, J., and Y. Guo,
@@ -394,7 +391,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [FC-ARXIV] "Secure Inter-domain Routing and Forwarding via Verifiable
               Forwarding Commitments", September 2023,
