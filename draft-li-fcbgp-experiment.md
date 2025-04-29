@@ -96,8 +96,6 @@ The current inter-domain, hop-by-hop forwarding model lacks end-to-end path vali
 
 As part of the development of the Forwarding Commitment BGP (FC-BGP) framework, we implemented a FC-BGP prototype and deployed the prototype in the operational networks of 40 Autonomous Systems (ASes) within the Future Internet Technology Infrastructure (FITI). The evaluation demonstrates that FC-BGP achieves significant performance improvements in large-scale network deployments and that even limited deployment yields substantial security benefits. This document first describes a FC-BGP prototype solution, then outlines the experimental environment, and finally presents the experimental results. It is anticipated that this document will provide useful insights for those interested in this subject and serve as preliminary input for future IETF work in this area.
 
-
-
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
@@ -232,14 +230,11 @@ GitHub repository: https://github.com/fcbgp/fcbgp-impl
 
 The prototype implementation of FC-BGP, as outlined in Section 2, has been deployed on the testbed described in Section 3. All solutions have been successfully tested, as described in the test experience and results presented in this section.
 
-# Test Experience
-
 Utilizing public datasets from RouteViews, we reconstructed the Internet BGP topology and replayed BGP announcements on the Testbed. We evaluated the functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios.
 
 To assess the impact of partial deployment, we varied the deployment ratio of FC-BGP and measured the resulting network-wide route hijackability rate as the deployment rate increased.
 
-Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the origin hijacking rate at the current deployment rate r. 
-
+Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the origin hijacking rate at the current deployment rate r.
 
 The test results are consistent with the expected outcomes. In a fully deployed FC-BGP network, an adversary cannot falsely claim the authenticity of a non-existent path by strategically combining FCs messages. Under partial deployment, the experimental results show that with a deployment rate of only 10%, more than 70% of Internet BGP paths can be protected.
 
