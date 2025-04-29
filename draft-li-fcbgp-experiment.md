@@ -236,8 +236,6 @@ To assess the impact of partial deployment, we varied the deployment ratio of FC
 
 The test results are consistent with the expected outcomes. In a fully deployed FC-BGP network, an adversary cannot falsely claim the authenticity of a non-existent path by strategically combining FCs messages. Under partial deployment, the experimental results show that with a deployment rate of only 10%, more than 70% of Internet BGP paths can be protected.
 
-# Test Results
-
 # Conclusion
 In conclusion, experimental results demonstrate that：
 
