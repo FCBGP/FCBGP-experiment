@@ -5,13 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 30 October 2025                                           Q. Li
+Expires: 31 October 2025                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
                                                                    Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                           28 April 2025
+                                                           29 April 2025
 
 
       Forwarding Commitment BGP Testbed and Deployment Experience
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 October 2025.
+   This Internet-Draft will expire on 31 October 2025.
 
 Copyright Notice
 
@@ -342,8 +342,8 @@ Table of Contents
        protocols.  These advantages are achieved without the need for
        modifications to the current Internet architecture.
 
-   2.  Incremental deployment is another design principle that was used
-       in the experiment.  The results indicate that, even with partial
+   2.  Incremental deployment is a key design principle that was used in
+       the experiment.  The results indicate that, even with partial
        deployment, FC-BGP provides significant security benefits in
        protecting routing information, encouraging early adoption of the
        solution by service providers.
