@@ -84,12 +84,13 @@ Table of Contents
      4.1.  FITI
      4.2.  FC-BGP Testbed on FITI Infrastructure
    5.  Test Experience and Results
-   6.  Conclusion
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   6.  Test Results
+   7.  Conclusion
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -317,23 +318,33 @@ Table of Contents
    have been successfully tested, as described in the test experience
    and results presented in this section.
 
-   Utilizing public datasets from RouteViews, we performed Internet BGP
-   topology reconstruction and BGP announcement replay on the Testbed.
-   Simultaneously, we adjusted the deployment ratio of FC-BGP to
-   calculate the network-wide route hijackability rate under partial
-   deployment scenarios as the deployment rate increases.
+   Utilizing public datasets from RouteViews, we reconstructed the
+   Internet BGP topology and replayed BGP announcements on the Testbed.
+   We evaluated the functionality of the FC-BGP prototype and its
+   compatibility under partial deployment scenarios.
+
+   To assess the impact of partial deployment, we varied the deployment
+   ratio of FC-BGP and measured the resulting network-wide route
+   hijackability rate as the deployment rate increased.
 
    Given a deployment rate r, we randomly select the r% ASes to upgrade
-   any one of FC-BGP and BGPsec.  We randomly select two ASes, A as the
-   victim and B as the attacker.  AS B initiates origin prefix hijacking
-   of AS A to all other ASes in the topology and computes the proportion
-   of ASes that can be hijacked denoted as p.  This process is repeated
-   10,000 times, and the average value of p is computed as the origin
-   hijacking rate at the current deployment rate r.  We obtained the
-   experimental result: With a deployment rate of only 10%, over 70% of
-   Internet BGP paths can be protected.
+   any one of FC-BGP.  We randomly select two ASes, A as the victim and
+   B as the attacker.  AS B initiates origin prefix hijacking of AS A to
+   all other ASes in the topology and computes the proportion of ASes
+   that can be hijacked denoted as p.  This process is repeated 10,000
+   times, and the average value of p is computed as the origin hijacking
+   rate at the current deployment rate r.
 
-6.  Conclusion
+   The test results are consistent with the expected outcomes.  In a
+   fully deployed FC-BGP network, an adversary cannot falsely claim the
+   authenticity of a non-existent path by strategically combining FCs
+   messages.  Under partial deployment, the experimental results show
+   that with a deployment rate of only 10%, more than 70% of Internet
+   BGP paths can be protected.
+
+6.  Test Results
+
+7.  Conclusion
 
    In conclusion, experimental results demonstrate that：
 
@@ -353,20 +364,20 @@ Table of Contents
        confirming its practicality and feasibility for large-scale
        deployment on the Internet.
 
-7.  Security Considerations
+8.  Security Considerations
 
    The purpose of this document is to report FC-BGP testbed and
    experimental results.  Security considerations related to the
    solution mechanisms are discussed in [FC-BGP-Protocol] and [FC-ARXIV]
    for details.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [FC-BGP-Protocol]
               Xu, K., Wang, X., liu, Z., Qi, L., Wu, J., and Y. Guo,
@@ -384,7 +395,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [FC-ARXIV] "Secure Inter-domain Routing and Forwarding via Verifiable
               Forwarding Commitments", September 2023,
