@@ -74,6 +74,9 @@ informative:
   RFC4272: # BGP Security Vulnerabilities Analysis
   RFC5065: # Autonomous System Confederations for BGP
   ASPP: I-D.ietf-grow-as-path-prepending
+  RFC7132: # Threat Model for BGP Path Security
+  RFC8205: # BGPsec protocol
+  ASPA-Profile: I-D.ietf-sidrops-aspa-profile
   FC-ARXIV:
     title: "Secure Inter-domain Routing and Forwarding via Verifiable Forwarding Commitments"
     date: Sep. 23, 2023
