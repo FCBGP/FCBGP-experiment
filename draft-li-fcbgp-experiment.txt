@@ -413,6 +413,10 @@ Table of Contents
               DOI 10.17487/RFC5065, August 2007,
               <https://www.rfc-editor.org/rfc/rfc5065>.
 
+   [RFC7132]  Kent, S. and A. Chi, "Threat Model for BGP Path Security",
+              RFC 7132, DOI 10.17487/RFC7132, February 2014,
+              <https://www.rfc-editor.org/rfc/rfc7132>.
+
 Acknowledgments
 
    TODO acknowledge.
