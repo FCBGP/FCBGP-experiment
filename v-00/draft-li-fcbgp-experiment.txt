@@ -1,0 +1,472 @@
+
+
+
+
+Network Working Group                                              K. Xu
+Internet-Draft                                                   X. Wang
+Intended status: Experimental                                     Z. Liu
+Expires: 7 November 2025                                           Q. Li
+                                                                   J. Wu
+                                                     Tsinghua University
+                                                                   Z. Li
+                                                                  Y. Guo
+                                                 Zhongguancun Laboratory
+                                                              6 May 2025
+
+
+   Forwarding Commitment-based BGP Testbed and Deployment Experience
+                    draft-li-fcbgp-experiment-latest
+
+Abstract
+
+   Forwarding Commitment BGP (FC-BGP) is capable of establishing a
+   secure inter-domain system that can simultaneously authenticate
+   AS_PATH attribute in BGP-UPDATE and validate network forwarding on
+   the dataplane.  In an effort to enhance the validation of FC-BGP, a
+   prototype implementation of the FC-BGP was developed and an
+   evaluation was conducted on the FITI high-performance IPv6 backbone
+   network.  This document reports on the prototype implementation and
+   the results of the evaluation.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://FCBGP.github.io/FCBGP-experiment/draft-li-fcbgp-
+   experiment.html.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-li-fcbgp-experiment/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/FCBGP/FCBGP-experiment.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 7 November 2025.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  A Prototype FC-BGP Implementation
+     3.1.  FC Generation at the Originating AS
+     3.2.  FC Verification at the Receiving AS
+     3.3.  Per-Neighbor UPDATE Generation
+     3.4.  FC Generation at Intermediate ASes
+   4.  FC-BGP Testbed
+     4.1.  FITI
+     4.2.  FC-BGP Testbed on FITI Infrastructure
+   5.  Test Experience and Results
+   6.  Conclusion
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   The current inter-domain, hop-by-hop forwarding model lacks end-to-
+   end path validation, exposing a broad attack surface and enabling
+   risks such as traffic interception, side-channel exploits, and man-
+   in-the-middle attacks[RFC4272].  FC-BGP is a novel forwarding-path
+   verification framework designed to address these security challenges
+   inherent in today’s inter-domain routing system.  By introducing a
+   Forwarding Commitment (FC), FC-BGP offers a solution that integrates
+   seamlessly with the existing routing infrastructure.  Through the use
+   of FCs to provide a verifiable view of routing intent, FC-BGP ensures
+   that the actual forwarding path conforms to declared routing
+   policies, while avoiding the challenges of computational complexity,
+   management overhead, and deployment cost associated with data-
+   plane–based cryptographic schemes.
+
+   As part of the development of the Forwarding Commitment BGP (FC-BGP)
+   framework, we implemented a FC-BGP prototype and deployed the
+   prototype in the operational networks of 40 Autonomous Systems (ASes)
+   within the Future Internet Technology Infrastructure (FITI).  The
+   evaluation demonstrates that FC-BGP achieves significant performance
+   improvements in large-scale network deployments and that even limited
+   deployment yields substantial security benefits.  This document first
+   describes a FC-BGP prototype solution, then outlines the experimental
+   environment, and finally presents the experimental results.  It is
+   anticipated that this document will provide useful insights for those
+   interested in this subject and serve as preliminary input for future
+   IETF work in this area.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  A Prototype FC-BGP Implementation
+
+   AS(65536) --> AS(65537) --> AS(65538)
+                         \
+                          \--> AS(65539)
+
+              Figure 1: An FC-BGP UPDATE propagation example.
+
+   This section describes a prototype implementation of Forwarding
+   Commitment BGP (FC-BGP), using a simplified topology as illustrated
+   in Figure 1.  Only the essential operations are highlighted here;
+   readers are referred to [FC-BGP-Protocol] for the complete protocol
+   specification.
+
+   In this example, all Autonomous Systems (ASes) are standard ASes;
+   Route Servers (RSes) and AS Confederations are not considered.
+   Additionally, no AS Path Protection (ASPP) mechanisms are applied.
+
+   For the purposes of discussion, it is assumed that:
+
+   1.  AS 65537 receives an FC-BGP UPDATE message for the prefix
+       192.0.2.0/24 from AS 65536.
+
+   2.  AS 65537 then propagates the route to AS 65538 and AS 65539.
+
+   An FC-BGP speaker SHOULD propagate an FC-BGP UPDATE message to its
+   downstream neighbors only after completing validation of the
+   Forwarding Commitments (FCs) and performing best path selection
+   according to the standard BGP decision process.
+
+3.1.  FC Generation at the Originating AS
+
+   When preparing to propagate a route, the FC-BGP speaker in AS 65536
+   performs the following steps:
+
+   1.  Constructs the FC segment:
+
+       Sets the Previous AS Number (PASN) to 0 (NULL).
+
+       Sets the Current AS Number (CASN) to 65536.
+
+       Sets the Next AS Number (NASN) to 65537.
+
+   2.  Computes the signature over the tuple (PASN, CASN, NASN, IP
+       Prefix Address, IP Prefix Length).
+
+   3.  Constructs the FC Path attribute by embedding the newly generated
+       FC segment.
+
+   4.  Encapsulates the route announcement in a BGP UPDATE message and
+       transmits it to AS 65537.
+
+3.2.  FC Verification at the Receiving AS
+
+   Upon receiving the UPDATE message, the FC-BGP speaker in AS 65537:
+
+   1.  Extracts the FC Path attribute.
+
+   2.  Retrieves the list of FC segments.
+
+   3.  Identifies the FC segment where CASN == 65536.
+
+   4.  Verifies that:
+
+       PASN == 0.
+
+       NASN == 65537.
+
+   5.  Retrieves the corresponding public key using the Subject Key
+       Identifier (SKI) field.
+
+   6.  Verifies the signature using the algorithm indicated by the
+       Algorithm ID field.
+
+   If the signature matches, the AS hop from 65536 to 65537 is
+   considered verified.  This process repeats for each FC segment
+   corresponding to the AS_PATH entries if applicable.
+
+   If AS 65537 does not support FC-BGP, its BGP speaker MUST propagate
+   the UPDATE message without validating the FC Path attribute.
+
+3.3.  Per-Neighbor UPDATE Generation
+
+   An FC-BGP speaker MUST generate a distinct UPDATE message for each
+   downstream neighbor.  Each UPDATE message MUST announce only a single
+   IP prefix and MUST NOT aggregate multiple prefixes.
+
+   This restriction is necessary because different prefixes may follow
+   different routing policies, resulting in different Forwarding
+   Commitments.  Aggregating prefixes could cause errors in FC
+   generation and validation.
+
+   Thus, AS 65537 generates:
+
+   An UPDATE message for AS 65538 with NASN set to 65538.
+
+   A separate UPDATE message for AS 65539 with NASN set to 65539.
+
+3.4.  FC Generation at Intermediate ASes
+
+   For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP
+   speaker in AS 65537:
+
+   1.  Encapsulates the route prefix into a single UPDATE message.
+
+   2.  Constructs a new FC segment:
+
+       Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix
+       Address, IP Prefix Length).
+
+       Signs the digest using ECDSA.
+
+       Fills in the Signature and other required FC fields.
+
+   3.  Prepends the newly created FC segment to the existing FC List.
+
+   4.  Completes the FC Path attribute.
+
+   5.  Continues with standard BGP UPDATE processing and transmission.
+
+4.  FC-BGP Testbed
+
+4.1.  FITI
+
+   The prototypes of our solutions for FC-BGP are implemented and tested
+   on Future Internet Technology Infrastructure(FITI).  FITI is a major
+   scientific and technological infrastructure project in China,
+   constructed and operated by the National Development and Reform
+   Commission, the Ministry of Education, Tsinghua University, and other
+   participating universities.  The FITI high-performance backbone
+   network connects 40 universities across 35 cities in 31 provinces,
+   autonomous regions, and municipalities, with backbone links
+   supporting bandwidths of up to 1.2 Tbps.  FITI has been assigned 4096
+   Autonomous System Numbers (ASNs) by APNIC, along with a
+   240a:a000::/20 IPv6 address block.  With geographically distributed
+   sites across China, FITI provides a genuine internet environment
+   suitable for large-scale network experimentation.
+
+4.2.  FC-BGP Testbed on FITI Infrastructure
+
+   The FC-BGP testbed is deployed on the FITI backbone network，as
+   illustrated in Figure 2.  FITI provides 40 Autonomous Systems (ASes).
+   These ASes are capable of providing multiple routers and have real
+   physical and geographic relationships.
+
+   The FC-BGP mechanism is implemented using FRRouting version 10.2.
+   This implementation includes the verification of the FC path
+   attribute upon receiving BGP UPDATE messages and the addition and
+   signing of the FC path attribute when sending BGP UPDATE messages.
+   The development and testing of this implementation were conducted on
+   Ubuntu 22.04 with OpenSSL 3.X installed.
+
+   Following software updates, the testbed is fully capable of
+   performing functional testing for the FC-BGP solution.
+
+   GitHub repository: https://github.com/fcbgp/fcbgp-impl
+
+           +------------+           +------------+
+           |   Beijing  |           |  Shanghai  |
+           | +--------+ |           | +--------+ |
+           | | FC-BGP | |    ...    | | FC-BGP | |
+           | +--------+ |           | +--------+ |
+           +------------+           +------------+
+                 |                        |
+           +-------------------------------------+
+           |                                     |
+           |                FITI                 |
+           |              Backbone               |
+           |                                     |
+           +-------------------------------------+
+                 |                        |
+           +------------+           +------------+
+           |   Nanjing  |           |  Shenzhen  |
+           | +--------+ |           | +--------+ |
+           | | FC-BGP | |    ...    | | FC-BGP | |
+           | +--------+ |           | +--------+ |
+           +------------+           +------------+
+
+              Figure 2: FC-BGP Testbed on FITI Infrastructure.
+
+5.  Test Experience and Results
+
+   The prototype implementation of FC-BGP, as outlined in Section 2, has
+   been deployed on the testbed described in Section 3.  All solutions
+   have been successfully tested, as described in the test experience
+   and results presented in this section.
+
+   Utilizing public datasets from RouteViews, we reconstructed the
+   Internet BGP topology and replayed BGP announcements on the Testbed.
+   We evaluated the functionality of the FC-BGP prototype and its
+   compatibility under partial deployment scenarios.
+
+   To assess the impact of partial deployment, we varied the deployment
+   ratio of FC-BGP and measured the resulting network-wide route
+   hijackability rate as the deployment rate increased.  Given a
+   deployment rate r, we randomly select the r% ASes to upgrade any one
+   of FC-BGP.  We randomly select two ASes, A as the victim and B as the
+   attacker.  AS B initiates origin prefix hijacking of AS A to all
+   other ASes in the topology and computes the proportion of ASes that
+   can be hijacked denoted as p.  This process is repeated 10,000 times,
+   and the average value of p is computed as the hijacking rate at the
+   current deployment rate r.
+
+   The test results are consistent with the expected outcomes.  In a
+   fully deployed FC-BGP network, an adversary cannot falsely claim the
+   authenticity of a non-existent path by strategically combining FCs
+   messages.  Under partial deployment, the experimental results show
+   that with a deployment rate of only 10%, more than 70% of Internet
+   BGP paths can be protected.
+
+6.  Conclusion
+
+   In conclusion, experimental results demonstrate that：
+
+   1.  FC-BGP offers efficient and scalable path verification while
+       preserving compatibility and stability with existing routing
+       protocols.  These advantages are achieved without the need for
+       modifications to the current Internet architecture.
+
+   2.  Incremental deployment is a key design principle that was used in
+       the experiment.  The results indicate that, even with partial
+       deployment, FC-BGP provides significant security benefits in
+       protecting routing information, encouraging early adoption of the
+       solution by service providers.
+
+   3.  FC-BGP is highly adaptable to diverse network environments,
+       supporting ISP policy enforcement and multipath routing, thus
+       confirming its practicality and feasibility for large-scale
+       deployment on the Internet.
+
+7.  Security Considerations
+
+   The purpose of this document is to report FC-BGP testbed and
+   experimental results.  Security considerations related to the
+   solution mechanisms are discussed in [FC-BGP-Protocol] and [FC-ARXIV]
+   for details.
+
+8.  IANA Considerations
+
+   This document has no IANA actions.
+
+9.  References
+
+9.1.  Normative References
+
+   [FC-BGP-Protocol]
+              Xu, K., Wang, X., liu, Z., Qi, L., Wu, J., and Y. Guo,
+              "FC-BGP Protocol Specification", Work in Progress,
+              Internet-Draft, draft-wang-sidrops-fcbgp-protocol-03, 6
+              April 2025, <https://datatracker.ietf.org/doc/html/draft-
+              wang-sidrops-fcbgp-protocol-03>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+9.2.  Informative References
+
+   [ASPP]     McBride, M., Madory, D., Tantsura, J., Raszuk, R., Li, H.,
+              Heitz, J., and G. S. Mishra, "AS Path Prepending", Work in
+              Progress, Internet-Draft, draft-ietf-grow-as-path-
+              prepending-15, 23 April 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-grow-as-
+              path-prepending-15>.
+
+   [FC-ARXIV] "Secure Inter-domain Routing and Forwarding via Verifiable
+              Forwarding Commitments", September 2023,
+              <https://arxiv.org/abs/2309.13271>.
+
+   [RFC4272]  Murphy, S., "BGP Security Vulnerabilities Analysis",
+              RFC 4272, DOI 10.17487/RFC4272, January 2006,
+              <https://www.rfc-editor.org/rfc/rfc4272>.
+
+   [RFC5065]  Traina, P., McPherson, D., and J. Scudder, "Autonomous
+              System Confederations for BGP", RFC 5065,
+              DOI 10.17487/RFC5065, August 2007,
+              <https://www.rfc-editor.org/rfc/rfc5065>.
+
+   [RFC7132]  Kent, S. and A. Chi, "Threat Model for BGP Path Security",
+              RFC 7132, DOI 10.17487/RFC7132, February 2014,
+              <https://www.rfc-editor.org/rfc/rfc7132>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Authors' Addresses
+
+   Ke Xu
+   Tsinghua University
+   Beijing
+   China
+   Email: xuke@tsinghua.edu.cn
+
+
+   Xiaoliang Wang
+   Tsinghua University
+   Beijing
+   China
+   Email: wangxiaoliang0623@foxmail.com
+
+
+   Zhuotao Liu
+   Tsinghua University
+   Beijing
+   China
+   Email: zhuotaoliu@tsinghua.edu.cn
+
+
+   Qi Li
+   Tsinghua University
+   Beijing
+   China
+   Email: qli01@tsinghua.edu.cn
+
+
+   Jianping Wu
+   Tsinghua University
+   Beijing
+   China
+   Email: jianping@cernet.edu.cn
+
+
+   Ziwei Li
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: lizw@zgclab.edu.cn
+
+
+   Yangfei Guo
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: guoyangfei@zgclab.edu.cn
