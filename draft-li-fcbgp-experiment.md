@@ -196,7 +196,7 @@ The FC-BGP mechanism is implemented using FRRouting version 10.2. This implement
 
 Following software updates, the testbed is fully capable of performing functional testing for the FC-BGP solution.
 
-GitHub repository: https://github.com/fcbgp/fcbgp-impl
+GitHub repository: https://github.com/fcbgp/fcbgp-implementation
 
 ~~~~~~
         +------------+           +------------+
