@@ -393,14 +393,6 @@ Table of Contents
 
 9.2.  Informative References
 
-   [ASPA-Profile]
-              Azimov, A., Uskov, E., Bush, R., Snijders, J., Housley,
-              R., and B. Maddison, "A Profile for Autonomous System
-              Provider Authorization", Work in Progress, Internet-Draft,
-              draft-ietf-sidrops-aspa-profile-19, 6 January 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-
-              aspa-profile-19>.
-
    [ASPP]     McBride, M., Madory, D., Tantsura, J., Raszuk, R., Li, H.,
               Heitz, J., and G. S. Mishra, "AS Path Prepending", Work in
               Progress, Internet-Draft, draft-ietf-grow-as-path-
@@ -420,14 +412,6 @@ Table of Contents
               System Confederations for BGP", RFC 5065,
               DOI 10.17487/RFC5065, August 2007,
               <https://www.rfc-editor.org/rfc/rfc5065>.
-
-   [RFC7132]  Kent, S. and A. Chi, "Threat Model for BGP Path Security",
-              RFC 7132, DOI 10.17487/RFC7132, February 2014,
-              <https://www.rfc-editor.org/rfc/rfc7132>.
-
-   [RFC8205]  Lepinski, M., Ed. and K. Sriram, Ed., "BGPsec Protocol
-              Specification", RFC 8205, DOI 10.17487/RFC8205, September
-              2017, <https://www.rfc-editor.org/rfc/rfc8205>.
 
 Acknowledgments
 
