@@ -73,11 +73,10 @@ normative:
 informative:
   RFC4272: # BGP Security Vulnerabilities Analysis
   RFC5065: # Autonomous System Confederations for BGP
-  RFC5492: # Capabilities Advertisement with BGP-4
-  RFC6472: # Recommendation for Not Using AS_SET and AS_CONFED_SET in BGP
-  RFC6811: # BGP Prefix Origin Validation
+  ASPP: I-D.ietf-grow-as-path-prepending
   RFC7132: # Threat Model for BGP Path Security
-  RFC7607: # Codification of AS 0 Processing
+  RFC8205: # BGPsec protocol
+  ASPA-Profile: I-D.ietf-sidrops-aspa-profile
   FC-ARXIV:
     title: "Secure Inter-domain Routing and Forwarding via Verifiable Forwarding Commitments"
     date: Sep. 23, 2023
