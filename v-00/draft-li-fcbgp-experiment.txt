@@ -5,13 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 7 November 2025                                           Q. Li
+Expires: 8 November 2025                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
                                                                    Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                              6 May 2025
+                                                              7 May 2025
 
 
    Forwarding Commitment-based BGP Testbed and Deployment Experience
@@ -19,7 +19,7 @@ Expires: 7 November 2025                                           Q. Li
 
 Abstract
 
-   Forwarding Commitment BGP (FC-BGP) is capable of establishing a
+   Forwarding Commitment-based BGP (FC-BGP) is capable of establishing a
    secure inter-domain system that can simultaneously authenticate
    AS_PATH attribute in BGP-UPDATE and validate network forwarding on
    the dataplane.  In an effort to enhance the validation of FC-BGP, a
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2025.
+   This Internet-Draft will expire on 8 November 2025.
 
 Copyright Notice
 
