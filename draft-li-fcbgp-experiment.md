@@ -82,7 +82,7 @@ informative:
 
 --- abstract
 
-Forwarding Commitment BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.
+Forwarding Commitment-based BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.
 
 --- middle
 
