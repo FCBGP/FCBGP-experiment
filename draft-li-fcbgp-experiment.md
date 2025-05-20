@@ -241,7 +241,7 @@ The prototype implementation of FC-BGP, as described in Section 2, was deployed 
 # Conclusion
 In conclusion, experimental results demonstrate that：
 
-1. FC-BGP offers efficient and scalable path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.
+1. FC-BGP offers efficient and scalable AS path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.
 2. Incremental deployment is a key design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.
 
 # Security Considerations
