@@ -170,7 +170,7 @@ For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in
 
 1. Encapsulates the route prefix into a single UPDATE message.
 2. Constructs a new FC segment:
-   
+
    Sets the Previous AS Number (PASN) to 65536.
 
    Sets the Current AS Number (CASN) to 65537.
@@ -239,7 +239,7 @@ The prototype implementation of FC-BGP, as described in Section 2, was deployed 
 2. Under partial deployment conditions, FC-BGP demonstrated good compatibility with legacy BGP routers. Routers that did not support FC-BGP were able to transparently forward UPDATE messages containing FC path attributes, and the integrity of these messages was preserved throughout the forwarding process. These results suggest that FC-BGP supports incremental deployment and remains compatible with existing BGP implementations. With respect to partial deployment, Section 5.1.1 of {{FC-ARXIV}} demonstrates that an adversary cannot forge a valid AS path when FC-BGP is fully deployed. Furthermore, Section 5.1.2 of {{FC-ARXIV}} analyzes the advantages of FC-BGP in partial deployment scenarios. The analysis shows that FC-BGP offers greater security benefits than BGPsec under partial deployment conditions.
 
 # Conclusion
-In conclusion, experimental results demonstrate that：
+In conclusion, experimental results demonstrate that:
 
 1. FC-BGP offers efficient and scalable AS path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.
 2. Incremental deployment is a key design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.
