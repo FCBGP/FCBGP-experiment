@@ -362,10 +362,10 @@ Table of Contents
        messages was preserved throughout the forwarding process.  These
        results suggest that FC-BGP supports incremental deployment and
        remains compatible with existing BGP implementations.  With
-       respect to incremental or partial deployment, Section 5.1.1 of
-       [FC-ARXIV] demonstrates that an adversary cannot forge a valid AS
-       path when FC-BGP is fully deployed.  Furthermore, Section 5.1.2
-       of [FC-ARXIV] analyzes the advantages of FC-BGP in partial
+       respect to partial deployment, Section 5.1.1 of [FC-ARXIV]
+       demonstrates that an adversary cannot forge a valid AS path when
+       FC-BGP is fully deployed.  Furthermore, Section 5.1.2 of
+       [FC-ARXIV] analyzes the advantages of FC-BGP in partial
        deployment scenarios.  The analysis shows that FC-BGP offers
        greater security benefits than BGPsec under partial deployment
        conditions.
