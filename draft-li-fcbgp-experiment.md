@@ -130,9 +130,9 @@ When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the
 
    Sets the Next AS Number (NASN) to 65537.
 
-2. Computes the signature as follows: Signature=ECDSA(SHA256(PASN, CASN, NASN, Prefix, Prefix Length)).
-3. Constructs the FC Path attribute by embedding the newly generated FC segment.
-4. Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.
+3. Computes the signature as follows: Signature=ECDSA(SHA256(PASN, CASN, NASN, Prefix, Prefix Length)).
+4. Constructs the FC Path attribute by embedding the newly generated FC segment.
+5. Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.
 
 ## FC Verification at the Receiving AS
 
@@ -176,16 +176,16 @@ For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in
    Sets the Current AS Number (CASN) to 65537.
 
    Sets the Next AS Number (NASN) to 65538.
-   
+
    Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).
 
    Signs the digest using ECDSA.
 
    Fills in the Signature and other required FC fields.
 
-3. Prepends the newly created FC segment to the existing FC List.
-4. Completes the FC Path attribute.
-5. Continues with standard BGP UPDATE processing and transmission.
+4. Prepends the newly created FC segment to the existing FC List.
+5. Completes the FC Path attribute.
+6. Continues with standard BGP UPDATE processing and transmission.
 
 # FC-BGP Testbed
 
