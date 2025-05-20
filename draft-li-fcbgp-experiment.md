@@ -189,12 +189,7 @@ For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in
 The prototypes of our solutions for FC-BGP are implemented and tested on Future Internet Technology Infrastructure(FITI). FITI is a major scientific and technological infrastructure project in China, constructed and operated by the National Development and Reform Commission, the Ministry of Education, Tsinghua University, and other participating universities. The FITI high-performance backbone network connects 40 universities across 35 cities in 31 provinces, autonomous regions, and municipalities, with backbone links supporting bandwidths of up to 1.2 Tbps. FITI has been assigned 4096 Autonomous System Numbers (ASNs) by APNIC, along with a 240a:a000::/20 IPv6 address block. With geographically distributed sites across China, FITI provides a genuine internet environment suitable for large-scale network experimentation.
 
 ## FC-BGP Testbed on FITI Infrastructure
-
-The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in {{fig-rs-x}}. FITI provides 40 Autonomous Systems (ASes). These ASes are capable of providing multiple routers and have real physical and geographic relationships.
-
-The FC-BGP mechanism is implemented using FRRouting version 10.2. This implementation includes the verification of the FC path attribute upon receiving BGP UPDATE messages and the addition and signing of the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.
-
-Following software updates, the testbed is fully capable of performing functional testing for the FC-BGP solution.
+The FC-BGP testbed was deployed on the FITI backbone network, as illustrated in {{fig-rs-x}}. FITI provides a network environment comprising 40 interconnected ASes located in cities such as Beijing, Shanghai, Nanjing, and Shenzhen. These ASes are capable of running the BGP protocol, support customizable routing policies, and reflect realistic physical and geographical topologies. Each AS can host multiple routers. The FC-BGP mechanism was implemented in 31 of the ASes, including deployment on commercial H3C CR16000 or CR19000 routers in a subset of them. After software updates, these 31 ASes were fully FC-BGP-enabled, supporting route exchange as well as FC attribute transmission and reception. The remaining 9 ASes did not deploy FC-BGP and were used to construct a partial deployment scenario.The testbed is fully capable of supporting the evaluation requirements for the FC-BGP solution.
 
 GitHub repository: https://github.com/fcbgp/fcbgp-implementation
 
@@ -224,20 +219,25 @@ GitHub repository: https://github.com/fcbgp/fcbgp-implementation
 
 # Test Experience and Results
 
-The prototype implementation of FC-BGP, as outlined in Section 2, has been deployed on the testbed described in Section 3. All solutions have been successfully tested, as described in the test experience and results presented in this section.
+The prototype implementation of FC-BGP, as described in Section 2, was deployed on the testbed outlined in Section 3. The functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios were evaluated. All features were successfully tested, as detailed in the experimental results presented in this section.
 
-Utilizing public datasets from RouteViews, we reconstructed the Internet BGP topology and replayed BGP announcements on the Testbed. We evaluated the functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios.
+## Test Experience
 
-To assess the impact of partial deployment, we varied the deployment ratio of FC-BGP and measured the resulting network-wide route hijackability rate as the deployment rate increased. Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the hijacking rate at the current deployment rate r.
+1. Functional testing of FC-BGP was conducted to verify the protocol's compliance with its specification in terms of message construction and operational behavior. The evaluation focused on verifying that a BGP speaker is able to correctly construct BGP UPDATE messages containing the FC path attribute and that the message format conforms to the FC-BGP specification. In addition, the tests validated that the FC-BGP implementation correctly performs per-hop path validation procedures.
 
-The test results are consistent with the expected outcomes. In a fully deployed FC-BGP network, an adversary cannot falsely claim the authenticity of a non-existent path by strategically combining FCs messages. Under partial deployment, the experimental results show that with a deployment rate of only 10%, more than 70% of Internet BGP paths can be protected.
+2. To assess the effectiveness and compatibility of FC-BGP in partial deployment scenarios, a testbed was constructed consisting of routers that support FC-BGP mechanism and intermediate routers that do not support the FC-BGP mechanism.The goal of the testing was to confirm that routers without FC-BGP mechanism support can transparently forward BGP UPDATE messages containing FC path attributes without discarding or altering them. This ensures that FC path attributes are preserved even when traversing BGP routers that do not support FC-BGP mechanism.
+
+## Test Results
+
+1. The test results indicate that the FC-BGP prototype correctly implements the functionalities as defined in the protocol specification{{FC-BGP-Protocol}}. All FC-BGP-enabled BGP speakers were able to successfully generate FC-BGP UPDATE messages that conformed to the protocol specification, and the receiving AS was able to correctly perform the path validation procedure. The FC path validation mechanism functioned as intended, verifying each hop in the AS_PATH sequentially. In scenarios where the receiving AS did not support FC-BGP, the system was still able to forward FC-BGP UPDATE messages without disruption.
+
+2. Under partial deployment conditions, FC-BGP demonstrated good compatibility with legacy BGP routers. Routers that did not support FC-BGP were able to transparently forward UPDATE messages containing FC path attributes, and the integrity of these messages was preserved throughout the forwarding process. These results suggest that FC-BGP supports incremental deployment and remains compatible with existing BGP implementations. With respect to incremental or partial deployment, Section 5.1.1 of {{FC-ARXIV}} demonstrates that an adversary cannot forge a valid AS path when FC-BGP is fully deployed. Furthermore, Section 5.1.2 of {{FC-ARXIV}} analyzes the advantages of FC-BGP in partial deployment scenarios. The analysis shows that FC-BGP offers greater security benefits than BGPsec under partial deployment conditions.
 
 # Conclusion
 In conclusion, experimental results demonstrate that：
 
 1. FC-BGP offers efficient and scalable path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.
 2. Incremental deployment is a key design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.
-3. FC-BGP is highly adaptable to diverse network environments, supporting ISP policy enforcement and multipath routing, thus confirming its practicality and feasibility for large-scale deployment on the Internet.
 
 # Security Considerations
 
