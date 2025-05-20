@@ -88,7 +88,7 @@ Forwarding Commitment BGP (FC-BGP) enables the establishment of a secure inter-d
 
 # Introduction
 
-The current inter-domain, hop-by-hop forwarding model lacks end-to-end path validation, exposing a broad attack surface and enabling risks such as traffic interception, side-channel exploits, and man-in-the-middle attacks{{RFC4272}}. FC-BGP is a novel forwarding-path verification framework designed to address these security challenges inherent in today’s inter-domain routing system. By introducing a Forwarding Commitment (FC), FC-BGP offers a solution that integrates seamlessly with the existing routing infrastructure. Through the use of FCs to provide a verifiable view of routing intent, FC-BGP ensures that the actual forwarding path conforms to declared routing policies, while avoiding the challenges of computational complexity, management overhead, and deployment cost associated with data-plane–based cryptographic schemes.
+The current inter-domain routing system lacks a mechanism in BGP to ensure the authenticity of path attributes announced by an Autonomous System (AS). This deficiency exposes a broad attack surface and enables risks such as traffic interception, denial-of-service, and man-in-the-middle attacks{{RFC4272}}.Forwarding Commitment BGP (FC-BGP) is a novel forwarding-path verification framework designed to address these security challenges inherent in today’s inter-domain routing system. By introducing a Forwarding Commitment (FC), FC-BGP offers a solution that integrates seamlessly with the existing routing infrastructure. Through the use of FCs to provide a verifiable view of routing intent, FC-BGP ensures that the actual forwarding path conforms to declared routing policies.
 
 As part of the development of the Forwarding Commitment BGP (FC-BGP) framework, we implemented a FC-BGP prototype and deployed the prototype in the operational networks of 40 Autonomous Systems (ASes) within the Future Internet Technology Infrastructure (FITI). The evaluation demonstrates that FC-BGP achieves significant performance improvements in large-scale network deployments and that even limited deployment yields substantial security benefits. This document first describes a FC-BGP prototype solution, then outlines the experimental environment, and finally presents the experimental results. It is anticipated that this document will provide useful insights for those interested in this subject and serve as preliminary input for future IETF work in this area.
 
@@ -106,7 +106,7 @@ AS(65536) --> AS(65537) --> AS(65538)
 ~~~~~~
 {: #fig-atta-ex title="An FC-BGP UPDATE propagation example."}
 
-This section describes a prototype implementation of Forwarding Commitment BGP (FC-BGP), using a simplified topology as illustrated in {{fig-atta-ex}}. Only the essential operations are highlighted here; readers are referred to {{FC-BGP-Protocol}} for the complete protocol specification.
+This section describes a prototype implementation of FC-BGP, using a simplified topology as illustrated in {{fig-atta-ex}}. Only the essential operations are highlighted here; readers are referred to {{FC-BGP-Protocol}} for the complete protocol specification.
 
 In this example, all Autonomous Systems (ASes) are standard ASes; Route Servers (RSes) and AS Confederations are not considered. Additionally, no AS Path Protection (ASPP) mechanisms are applied.
 
@@ -228,7 +228,7 @@ The prototype implementation of FC-BGP, as described in Section 2, was deployed 
 
 ## Test Experience
 
-1. Functional testing of FC-BGP was conducted to verify the protocol's compliance with its specification in terms of message construction and operational behavior. The evaluation focused on verifying that a BGP speaker is able to correctly construct BGP UPDATE messages containing the FC path attribute and that the message format conforms to the FC-BGP specification. In addition, the tests validated that the FC-BGP implementation correctly performs per-hop path validation procedures.
+1. Functional testing of FC-BGP was conducted to verify the protocol's compliance with its specification in terms of message construction and operational behavior. The evaluation focused on verifying that a BGP speaker is able to correctly construct BGP UPDATE messages containing the FC path attribute and that the message format conforms to the FC-BGP specification. In addition, the tests validated that the FC-BGP implementation correctly performs AS path validation procedures.
 
 2. To assess the effectiveness and compatibility of FC-BGP in partial deployment scenarios, a testbed was constructed consisting of routers that support FC-BGP mechanism and intermediate routers that do not support the FC-BGP mechanism.The goal of the testing was to confirm that routers without FC-BGP mechanism support can transparently forward BGP UPDATE messages containing FC path attributes without discarding or altering them. This ensures that FC path attributes are preserved even when traversing BGP routers that do not support FC-BGP mechanism.
 
