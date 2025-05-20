@@ -154,7 +154,7 @@ If the signature matches, the AS hop from 65536 to 65537 is considered verified.
 
 If AS 65537 does not support FC-BGP, its BGP speaker MUST propagate the UPDATE message without validating the FC Path attribute.
 
-## Per-Neighbor UPDATE Generation
+## FC Generation at Intermediate ASes
 
 An FC-BGP speaker MUST generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message MUST announce only a single IP prefix and MUST NOT aggregate multiple prefixes.
 
@@ -166,13 +166,17 @@ An UPDATE message for AS 65538 with NASN set to 65538.
 
 A separate UPDATE message for AS 65539 with NASN set to 65539.
 
-## FC Generation at Intermediate ASes
-
 For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in AS 65537:
 
 1. Encapsulates the route prefix into a single UPDATE message.
 2. Constructs a new FC segment:
+   
+   Sets the Previous AS Number (PASN) to 65536.
 
+   Sets the Current AS Number (CASN) to 65537.
+
+   Sets the Next AS Number (NASN) to 65538.
+   
    Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).
 
    Signs the digest using ECDSA.
