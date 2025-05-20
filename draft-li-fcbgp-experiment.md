@@ -1,5 +1,5 @@
 ---
-title: "Forwarding Commitment Based BGP Testbed and Deployment Experience"
+title: "Forwarding Commitment BGP Testbed and Deployment Experience"
 abbrev: "fcbgp-testbed-and-deployment-experience"
 category: exp
 
@@ -82,7 +82,7 @@ informative:
 
 --- abstract
 
-Forwarding Commitment BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.
+Forwarding Commitment BGP (FC-BGP) enables the establishment of a secure inter-domain routing system by providing security for the path of Autonomous Systems (ASs) through which a BGP UPDATE message passes. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.
 
 --- middle
 
@@ -112,10 +112,11 @@ In this example, all Autonomous Systems (ASes) are standard ASes; Route Servers 
 
 For the purposes of discussion, it is assumed that:
 
-1. AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.
-2. AS 65537 then propagates the route to AS 65538 and AS 65539.
+1. AS 65536 owns the prefix 192.0.2.0/24.
+2. AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.
+3. AS 65537 then propagates the route to AS 65538 and AS 65539.
 
-An FC-BGP speaker SHOULD propagate an FC-BGP UPDATE message to its downstream neighbors only after completing validation of the Forwarding Commitments (FCs) and performing best path selection according to the standard BGP decision process.
+An FC-BGP speaker SHOULD propagate an FC-BGP UPDATE message to downstream ASs only after completing the validation and best route path selection.
 
 ## FC Generation at the Originating AS
 
@@ -129,7 +130,7 @@ When preparing to propagate a route, the FC-BGP speaker in AS 65536 performs the
 
    Sets the Next AS Number (NASN) to 65537.
 
-2. Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).
+2. Computes the signature as follows: Signature=ECDSA(SHA256(PASN, CASN, NASN, Prefix, Prefix Length)).
 3. Constructs the FC Path attribute by embedding the newly generated FC segment.
 4. Encapsulates the route announcement in a BGP UPDATE message and transmits it to AS 65537.
 
