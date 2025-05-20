@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Forwarding Commitment Based BGP Testbed and Deployment Experience</title>
+<title>Forwarding Commitment BGP Testbed and Deployment Experience</title>
 <meta content="Ke Xu" name="author">
 <meta content="Xiaoliang Wang" name="author">
 <meta content="Zhuotao Liu" name="author">
@@ -13,7 +13,7 @@
 <meta content="Ziwei Li" name="author">
 <meta content="Yangfei Guo" name="author">
 <meta content="
-       Forwarding Commitment BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation. 
+       Forwarding Commitment BGP (FC-BGP) enables the establishment of a secure inter-domain routing system by providing security for the path of Autonomous Systems (ASs) through which a BGP UPDATE message passes. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation. 
     " name="description">
 <meta content="xml2rfc 3.28.1" name="generator">
 <meta content="next generation" name="keyword">
@@ -1108,10 +1108,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Forwarding Commitment Based BGP Testbed and Deployment Experience</h1>
+<h1 id="title">Forwarding Commitment BGP Testbed and Deployment Experience</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Forwarding Commitment BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Forwarding Commitment BGP (FC-BGP) enables the establishment of a secure inter-domain routing system by providing security for the path of Autonomous Systems (ASs) through which a BGP UPDATE message passes. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1290,13 +1290,16 @@ AS(65536) --&gt; AS(65537) --&gt; AS(65538)
 <p id="section-3-4">For the purposes of discussion, it is assumed that:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-5">
 <li id="section-3-5.1">
-          <p id="section-3-5.1.1">AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.1.1">AS 65536 owns the prefix 192.0.2.0/24.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-5.2">
-          <p id="section-3-5.2.1">AS 65537 then propagates the route to AS 65538 and AS 65539.<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.2.1">AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-3-5.3">
+          <p id="section-3-5.3.1">AS 65537 then propagates the route to AS 65538 and AS 65539.<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-3-6">An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to its downstream neighbors only after completing validation of the Forwarding Commitments (FCs) and performing best path selection according to the standard BGP decision process.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-6">An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to downstream ASs only after completing the validation and best route path selection.<a href="#section-3-6" class="pilcrow">¶</a></p>
 <div id="fc-generation-at-the-originating-as">
 <section id="section-3.1">
         <h3 id="name-fc-generation-at-the-origin">
@@ -1314,7 +1317,7 @@ Sets the Current AS Number (CASN) to 65536.<a href="#section-3.1-2.1.3" class="p
 Sets the Next AS Number (NASN) to 65537.<a href="#section-3.1-2.1.4" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">Computes the signature as follows: Signature=ECDSA(SHA256(PASN, CASN, NASN, Prefix, Prefix Length)).<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.3">
             <p id="section-3.1-2.3.1">Constructs the FC Path attribute by embedding the newly generated FC segment.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
