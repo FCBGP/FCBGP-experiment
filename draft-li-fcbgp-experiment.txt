@@ -5,13 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 21 November 2025                                          Q. Li
+Expires: 1 December 2025                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
                                                                    Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                             20 May 2025
+                                                             30 May 2025
 
 
       Forwarding Commitment BGP Testbed and Deployment Experience
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 November 2025.
+   This Internet-Draft will expire on 1 December 2025.
 
 Copyright Notice
 
@@ -291,28 +291,59 @@ Table of Contents
 
    GitHub repository: https://github.com/fcbgp/fcbgp-implementation
 
-           +------------+           +------------+
-           |   Beijing  |           |  Shanghai  |
-           | +--------+ |           | +--------+ |
-           | | FC-BGP | |    ...    | | FC-BGP | |
-           | +--------+ |           | +--------+ |
-           +------------+           +------------+
-                 |                        |
-           +-------------------------------------+
-           |                                     |
-           |                FITI                 |
-           |              Backbone               |
-           |                                     |
-           +-------------------------------------+
-                 |                        |
-           +------------+           +------------+
-           |   Nanjing  |           |  Shenzhen  |
-           | +--------+ |           | +--------+ |
-           | | FC-BGP | |    ...    | | FC-BGP | |
-           | +--------+ |           | +--------+ |
-           +------------+           +------------+
++--------------+
+|    Urumqi    |
+| +----------+ |
+| |  FC-BGP  | +----------+                                              +--------------+
+| +----------+ |          |                                              |   Shenyang   |
++--------------+          |                     ...                      | +----------+ |
+                          |                      |              +--------+ |  FC-BGP  | |
+                          |              +-------+-------+      |        | +----------+ |
+                          |              |    Beijing    |      |        +--------------+
+        +-----------------+--------------+ +-----------+ +------+
+        |                 | +------------+ |   FC-BGP  | +---------...----------+
+        |                 | |            | +-----------+ |                      |
+        |                 | |            +-------+-------+                      |
+        |                 | |                    |                              |
+        |                 | |                    |                             ...
+        |           +-----+-+------+     +-------+-------+                      |
+        |           |     Xi'an    |     |   Zhengzhou   |                      |
+        |        .  | +----------+ |     | +-----------+ |                      |
+        |        .--+ |  FC-BGP  | |     | |   FC-BGP  | |               +------+-------+
+        |        .  | +----------+ |     | +-----------+ |               |   Shanghai   |
+        |           +------+-------+     +-------+-------+               | +----------+ |   .
+        |                  |                     |                       | |  FC-BGP  | +-- .
+        |                  |                     |                       | +----------+ |   .
+        |                  |             +-------+-------+               +------+-------+
++-------+------+           |             |     Wuhan     |                      |
+|     Lhasa    |           |             | +-----------+ |                      |
+| +----------+ |          ... -----------+ |Legacy--BGP| +-------------------- ...
+| |  FC-BGP  | |                         | +-----------+ |                      |
+| +----------+ |                         +-------+-------+                      |
++--------------+                                 |                              |
+                                                 |                              |
+                                         +-------+-------+                      |
+                                         |   Changsha    |                      |
+                                         | +-----------+ |                      |
+                                         | |  FC-BGP   | |                      |
+                                         | +-----------+ |                     ...
+                                         +-------+-------+                      |
+                                                 |                              |
+                                                 |                              |
+                       +--------------+  +-------+-------+                      |
+                       |    Nanning   |  |   Guangzhou   |                      |
+                       | +----------+ |  | +-----------+ |                      |
+                       | |  FC-BGP  | +--+ |  FC-BGP   | +----------------------+
+                       | +----------+ |  | +-----------+ |
+                       +--------------+  +-----+---+-----+
+                       +--------------+        |   |      +--------------+
+                       |    Haikou    |        |   |      |   Shenzhen   |
+                       | +----------+ |        |   |      | +----------+ |
+                       | |  FC-BGP  | +--------+   +------+ |  FC-BGP  | |
+                       | +----------+ |                   | +----------+ |
+                       +--------------+                   +--------------+
 
-              Figure 2: FC-BGP Testbed on FITI Infrastructure.
+           Figure 2: FC-BGP Testbed on FITI Infrastructure.
 
 5.  Test Experience and Results
 
