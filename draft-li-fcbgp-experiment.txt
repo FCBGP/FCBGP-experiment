@@ -381,7 +381,7 @@ Table of Contents
        families, including IPv4 and IPv6.  Test the compatibility of the
        FC-BGP prototype device, when functioning as a BGP route
        reflector (RR) and RR client, in networks composed of commercial
-       routers from different vendors such as Huawei and H3C.
+       routers from different vendors.
 
 5.2.  Test Results
 
@@ -398,7 +398,7 @@ Table of Contents
 
    2.  Under partial deployment conditions, FC-BGP demonstrated good
        compatibility with legacy BGP routers.  Commercial routers from
-       different vendors that do not support FC-BGP (e.g., Huawei, H3C,
+       different vendors that do not support FC-BGP (such as Huawei and
        Ruijie) were able to transparently forward UPDATE messages
        containing FC path attributes, and the integrity of these
        messages was preserved throughout the forwarding process.  These
