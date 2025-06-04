@@ -5,13 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 1 December 2025                                           Q. Li
+Expires: 6 December 2025                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
                                                                    Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                             30 May 2025
+                                                             4 June 2025
 
 
       Forwarding Commitment BGP Testbed and Deployment Experience
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 December 2025.
+   This Internet-Draft will expire on 6 December 2025.
 
 Copyright Notice
 
@@ -375,6 +375,14 @@ Table of Contents
        them.  This ensures that FC path attributes are preserved even
        when traversing BGP routers that do not support FC-BGP mechanism.
 
+   3.  Evaluate the compatibility of the FC-BGP prototype device in a
+       variety of network scenarios.  Verify the routing processing
+       capabilities of the FC-BGP device under different address
+       families, including IPv4 and IPv6.  Test the compatibility of the
+       FC-BGP prototype device, when functioning as a BGP route
+       reflector（RR） and RR client, in networks composed with commercial
+       routers from different vendors such as Huawei and H3C.
+
 5.2.  Test Results
 
    1.  The test results indicate that the FC-BGP prototype correctly
@@ -402,6 +410,16 @@ Table of Contents
        deployment scenarios.  The analysis shows that FC-BGP offers
        greater security benefits than BGPsec under partial deployment
        conditions.
+
+   3.  The test results indicate that the FC-BGP prototype device is
+       capable of correctly receiving and processing routing information
+       for all supported address families.  When operating as a BGP RR,
+       the FC-BGP prototype device can correctly reflect both IPv4 and
+       IPv6 routes to its clients.  Additionally, when acting as a BGP
+       RR client, the FC-BGP prototype device is able to properly
+       receive routes from the RR.  These results demonstrate that the
+       FC-BGP prototype device exhibits strong compatibility across a
+       variety of network scenarios.
 
 6.  Conclusion
 
