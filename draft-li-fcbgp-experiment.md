@@ -198,6 +198,16 @@ The FC-BGP testbed was deployed on the FITI backbone network, as illustrated in 
 
 GitHub repository: https://github.com/fcbgp/fcbgp-implementation
 
+
+
+# Test Experience and Results
+
+The prototype implementation of FC-BGP, as described in Section 2, was deployed on the testbed outlined in Section 3. The functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios were evaluated. All features were successfully tested, as detailed in the experimental results presented in this section.
+
+## Test Experience
+
+1. Functional testing of FC-BGP is conducted to verify the protocol's compliance with its specification in terms of message construction and operational behavior. The evaluation focuses on verifying that a BGP speaker is able to correctly construct BGP UPDATE messages containing the FC path attribute and that the message format conforms to the FC-BGP specification. In addition, the tests validate that the FC-BGP implementation correctly performs AS path validation procedures.
+
 ~~~~~~
 +--------------+
 |    Urumqi    |                                             ...
@@ -253,13 +263,6 @@ GitHub repository: https://github.com/fcbgp/fcbgp-implementation
 ~~~~~~
 {: #fig-rs-x title="FC-BGP Testbed on FITI Infrastructure."}
 
-# Test Experience and Results
-
-The prototype implementation of FC-BGP, as described in Section 2, was deployed on the testbed outlined in Section 3. The functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios were evaluated. All features were successfully tested, as detailed in the experimental results presented in this section.
-
-## Test Experience
-
-1. Functional testing of FC-BGP is conducted to verify the protocol's compliance with its specification in terms of message construction and operational behavior. The evaluation focuses on verifying that a BGP speaker is able to correctly construct BGP UPDATE messages containing the FC path attribute and that the message format conforms to the FC-BGP specification. In addition, the tests validate that the FC-BGP implementation correctly performs AS path validation procedures.
 
 2. To assess the effectiveness and compatibility of FC-BGP in partial deployment scenarios, a testbed is constructed consisting of routers that support the FC-BGP mechanism and intermediate routers that do not support it. The goal of the testing is to confirm that routers without FC-BGP mechanism support can transparently forward BGP UPDATE messages containing FC path attributes without discarding or altering them. This ensures that FC path attributes are preserved even when traversing BGP routers that do not support the FC-BGP mechanism.
 
