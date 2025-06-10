@@ -5,13 +5,13 @@
 Network Working Group                                              K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Experimental                                     Z. Liu
-Expires: 6 December 2025                                           Q. Li
+Expires: 12 December 2025                                          Q. Li
                                                                    J. Wu
                                                      Tsinghua University
                                                                    Z. Li
                                                                   Y. Guo
                                                  Zhongguancun Laboratory
-                                                             4 June 2025
+                                                            10 June 2025
 
 
       Forwarding Commitment BGP Testbed and Deployment Experience
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 December 2025.
+   This Internet-Draft will expire on 12 December 2025.
 
 Copyright Notice
 
@@ -102,7 +102,7 @@ Table of Contents
    enables risks such as traffic interception, denial-of-service, and
    man-in-the-middle attacks[RFC4272].Forwarding Commitment BGP (FC-BGP)
    is a novel forwarding-path verification framework designed to address
-   these security challenges inherent in today’s inter-domain routing
+   these security challenges inherent in today's inter-domain routing
    system.  By introducing a Forwarding Commitment (FC), FC-BGP offers a
    solution that integrates seamlessly with the existing routing
    infrastructure.  Through the use of FCs to provide a verifiable view
