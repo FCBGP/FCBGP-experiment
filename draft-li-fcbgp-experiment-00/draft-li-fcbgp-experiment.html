@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Forwarding Commitment-based BGP Testbed and Deployment Experience</title>
+<title>Forwarding Commitment BGP Testbed and Deployment Experience</title>
 <meta content="Ke Xu" name="author">
 <meta content="Xiaoliang Wang" name="author">
 <meta content="Zhuotao Liu" name="author">
@@ -13,7 +13,7 @@
 <meta content="Ziwei Li" name="author">
 <meta content="Yangfei Guo" name="author">
 <meta content="
-       Forwarding Commitment-based BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation. 
+       Forwarding Commitment BGP (FC-BGP) enables the establishment of a secure inter-domain routing system by providing security for the path of Autonomous Systems (ASs) through which a BGP UPDATE message passes. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation. 
     " name="description">
 <meta content="xml2rfc 3.28.1" name="generator">
 <meta content="next generation" name="keyword">
@@ -27,12 +27,12 @@
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.0
-    platformdirs 4.3.7
+    lxml 5.3.1
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.3
-    setuptools 70.3.0
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
 <link href="draft-li-fcbgp-experiment.xml" rel="alternate" type="application/rfc+xml">
@@ -1052,11 +1052,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">fcbgp-testbed-and-deployment-experience</td>
-<td class="right">May 2025</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Xu, et al.</td>
-<td class="center">Expires 8 November 2025</td>
+<td class="center">Expires 12 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-li-fcbgp-experiment-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-07" class="published">7 May 2025</time>
+<time datetime="2025-06-10" class="published">10 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-08">8 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-12">12 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1108,10 +1108,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Forwarding Commitment-based BGP Testbed and Deployment Experience</h1>
+<h1 id="title">Forwarding Commitment BGP Testbed and Deployment Experience</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Forwarding Commitment-based BGP (FC-BGP) is capable of establishing a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Forwarding Commitment BGP (FC-BGP) enables the establishment of a secure inter-domain routing system by providing security for the path of Autonomous Systems (ASs) through which a BGP UPDATE message passes. In an effort to enhance the validation of FC-BGP, a prototype implementation of the FC-BGP was developed and an evaluation was conducted on the FITI high-performance IPv6 backbone network. This document reports on the prototype implementation and the results of the evaluation.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1143,7 +1143,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1188,10 +1188,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-fc-verification-at-the-rece" class="internal xref">FC Verification at the Receiving AS</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-per-neighbor-update-generat" class="internal xref">Per-Neighbor UPDATE Generation</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-fc-generation-at-intermedia" class="internal xref">FC Generation at Intermediate ASes</a></p>
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-fc-generation-at-intermedia" class="internal xref">FC Generation at Intermediate ASes</a></p>
 </li>
             </ul>
 </li>
@@ -1208,6 +1205,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-test-experience-and-results" class="internal xref">Test Experience and Results</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-test-experience" class="internal xref">Test Experience</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-test-results" class="internal xref">Test Results</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-conclusion" class="internal xref">Conclusion</a></p>
@@ -1244,7 +1249,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The current inter-domain, hop-by-hop forwarding model lacks end-to-end path validation, exposing a broad attack surface and enabling risks such as traffic interception, side-channel exploits, and man-in-the-middle attacks<span>[<a href="#RFC4272" class="cite xref">RFC4272</a>]</span>. FC-BGP is a novel forwarding-path verification framework designed to address these security challenges inherent in today’s inter-domain routing system. By introducing a Forwarding Commitment (FC), FC-BGP offers a solution that integrates seamlessly with the existing routing infrastructure. Through the use of FCs to provide a verifiable view of routing intent, FC-BGP ensures that the actual forwarding path conforms to declared routing policies, while avoiding the challenges of computational complexity, management overhead, and deployment cost associated with data-plane–based cryptographic schemes.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">The current inter-domain routing system lacks a mechanism in BGP to ensure the authenticity of path attributes announced by an Autonomous System (AS). This deficiency exposes a broad attack surface and enables risks such as traffic interception, denial-of-service, and man-in-the-middle attacks<span>[<a href="#RFC4272" class="cite xref">RFC4272</a>]</span>.Forwarding Commitment BGP (FC-BGP) is a novel forwarding-path verification framework designed to address these security challenges inherent in today’s inter-domain routing system. By introducing a Forwarding Commitment (FC), FC-BGP offers a solution that integrates seamlessly with the existing routing infrastructure. Through the use of FCs to provide a verifiable view of routing intent, FC-BGP ensures that the actual forwarding path conforms to declared routing policies.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">As part of the development of the Forwarding Commitment BGP (FC-BGP) framework, we implemented a FC-BGP prototype and deployed the prototype in the operational networks of 40 Autonomous Systems (ASes) within the Future Internet Technology Infrastructure (FITI). The evaluation demonstrates that FC-BGP achieves significant performance improvements in large-scale network deployments and that even limited deployment yields substantial security benefits. This document first describes a FC-BGP prototype solution, then outlines the experimental environment, and finally presents the experimental results. It is anticipated that this document will provide useful insights for those interested in this subject and serve as preliminary input for future IETF work in this area.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1277,18 +1282,21 @@ AS(65536) --&gt; AS(65537) --&gt; AS(65538)
 <a href="#name-an-fc-bgp-update-propagatio" class="selfRef">An FC-BGP UPDATE propagation example.</a>
         </figcaption></figure>
 </div>
-<p id="section-3-2">This section describes a prototype implementation of Forwarding Commitment BGP (FC-BGP), using a simplified topology as illustrated in <a href="#fig-atta-ex" class="auto internal xref">Figure 1</a>. Only the essential operations are highlighted here; readers are referred to <span>[<a href="#FC-BGP-Protocol" class="cite xref">FC-BGP-Protocol</a>]</span> for the complete protocol specification.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-2">This section describes a prototype implementation of FC-BGP, using a simplified topology as illustrated in <a href="#fig-atta-ex" class="auto internal xref">Figure 1</a>. Only the essential operations are highlighted here; readers are referred to <span>[<a href="#FC-BGP-Protocol" class="cite xref">FC-BGP-Protocol</a>]</span> for the complete protocol specification.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">In this example, all Autonomous Systems (ASes) are standard ASes; Route Servers (RSes) and AS Confederations are not considered. Additionally, no AS Path Protection (ASPP) mechanisms are applied.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">For the purposes of discussion, it is assumed that:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-5">
 <li id="section-3-5.1">
-          <p id="section-3-5.1.1">AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.1.1">AS 65536 owns the prefix 192.0.2.0/24.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-5.2">
-          <p id="section-3-5.2.1">AS 65537 then propagates the route to AS 65538 and AS 65539.<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.2.1">AS 65537 receives an FC-BGP UPDATE message for the prefix 192.0.2.0/24 from AS 65536.<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-3-5.3">
+          <p id="section-3-5.3.1">AS 65537 then propagates the route to AS 65538 and AS 65539.<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-3-6">An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to its downstream neighbors only after completing validation of the Forwarding Commitments (FCs) and performing best path selection according to the standard BGP decision process.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-6">An FC-BGP speaker <span class="bcp14">SHOULD</span> propagate an FC-BGP UPDATE message to downstream ASs only after completing the validation and best route path selection.<a href="#section-3-6" class="pilcrow">¶</a></p>
 <div id="fc-generation-at-the-originating-as">
 <section id="section-3.1">
         <h3 id="name-fc-generation-at-the-origin">
@@ -1306,7 +1314,7 @@ Sets the Current AS Number (CASN) to 65536.<a href="#section-3.1-2.1.3" class="p
 Sets the Next AS Number (NASN) to 65537.<a href="#section-3.1-2.1.4" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">Computes the signature over the tuple (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">Computes the signature as follows: Signature=ECDSA(SHA256(PASN, CASN, NASN, Prefix, Prefix Length)).<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-2.3">
             <p id="section-3.1-2.3.1">Constructs the FC Path attribute by embedding the newly generated FC segment.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
@@ -1351,45 +1359,44 @@ NASN == 65537.<a href="#section-3.2-2.4.3" class="pilcrow">¶</a></p>
 <p id="section-3.2-4">If AS 65537 does not support FC-BGP, its BGP speaker <span class="bcp14">MUST</span> propagate the UPDATE message without validating the FC Path attribute.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="per-neighbor-update-generation">
+<div id="fc-generation-at-intermediate-ases">
 <section id="section-3.3">
-        <h3 id="name-per-neighbor-update-generat">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-per-neighbor-update-generat" class="section-name selfRef">Per-Neighbor UPDATE Generation</a>
+        <h3 id="name-fc-generation-at-intermedia">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-fc-generation-at-intermedia" class="section-name selfRef">FC Generation at Intermediate ASes</a>
         </h3>
 <p id="section-3.3-1">An FC-BGP speaker <span class="bcp14">MUST</span> generate a distinct UPDATE message for each downstream neighbor. Each UPDATE message <span class="bcp14">MUST</span> announce only a single IP prefix and <span class="bcp14">MUST NOT</span> aggregate multiple prefixes.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">This restriction is necessary because different prefixes may follow different routing policies, resulting in different Forwarding Commitments. Aggregating prefixes could cause errors in FC generation and validation.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Thus, AS 65537 generates:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <p id="section-3.3-4">An UPDATE message for AS 65538 with NASN set to 65538.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
 <p id="section-3.3-5">A separate UPDATE message for AS 65539 with NASN set to 65539.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="fc-generation-at-intermediate-ases">
-<section id="section-3.4">
-        <h3 id="name-fc-generation-at-intermedia">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-fc-generation-at-intermedia" class="section-name selfRef">FC Generation at Intermediate ASes</a>
-        </h3>
-<p id="section-3.4-1">For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in AS 65537:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.4-2">
-<li id="section-3.4-2.1">
-            <p id="section-3.4-2.1.1">Encapsulates the route prefix into a single UPDATE message.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.3-6">For each UPDATE to a downstream neighbor (e.g., AS 65538), the FC-BGP speaker in AS 65537:<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.3-7">
+<li id="section-3.3-7.1">
+            <p id="section-3.3-7.1.1">Encapsulates the route prefix into a single UPDATE message.<a href="#section-3.3-7.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.4-2.2">
-            <p id="section-3.4-2.2.1">Constructs a new FC segment:<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2.2.2">
-Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.4-2.2.2" class="pilcrow">¶</a></p>
-<p id="section-3.4-2.2.3">
-Signs the digest using ECDSA.<a href="#section-3.4-2.2.3" class="pilcrow">¶</a></p>
-<p id="section-3.4-2.2.4">
-Fills in the Signature and other required FC fields.<a href="#section-3.4-2.2.4" class="pilcrow">¶</a></p>
+          <li id="section-3.3-7.2">
+            <p id="section-3.3-7.2.1">Constructs a new FC segment:<a href="#section-3.3-7.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.3-7.2.2">
+Sets the Previous AS Number (PASN) to 65536.<a href="#section-3.3-7.2.2" class="pilcrow">¶</a></p>
+<p id="section-3.3-7.2.3">
+Sets the Current AS Number (CASN) to 65537.<a href="#section-3.3-7.2.3" class="pilcrow">¶</a></p>
+<p id="section-3.3-7.2.4">
+Sets the Next AS Number (NASN) to 65538.<a href="#section-3.3-7.2.4" class="pilcrow">¶</a></p>
+<p id="section-3.3-7.2.5">
+Computes the SHA-256 digest over (PASN, CASN, NASN, IP Prefix Address, IP Prefix Length).<a href="#section-3.3-7.2.5" class="pilcrow">¶</a></p>
+<p id="section-3.3-7.2.6">
+Signs the digest using ECDSA.<a href="#section-3.3-7.2.6" class="pilcrow">¶</a></p>
+<p id="section-3.3-7.2.7">
+Fills in the Signature and other required FC fields.<a href="#section-3.3-7.2.7" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.4-2.3">
-            <p id="section-3.4-2.3.1">Prepends the newly created FC segment to the existing FC List.<a href="#section-3.4-2.3.1" class="pilcrow">¶</a></p>
+          <li id="section-3.3-7.3">
+            <p id="section-3.3-7.3.1">Prepends the newly created FC segment to the existing FC List.<a href="#section-3.3-7.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.4-2.4">
-            <p id="section-3.4-2.4.1">Completes the FC Path attribute.<a href="#section-3.4-2.4.1" class="pilcrow">¶</a></p>
+          <li id="section-3.3-7.4">
+            <p id="section-3.3-7.4.1">Completes the FC Path attribute.<a href="#section-3.3-7.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.4-2.5">
-            <p id="section-3.4-2.5.1">Continues with standard BGP UPDATE processing and transmission.<a href="#section-3.4-2.5.1" class="pilcrow">¶</a></p>
+          <li id="section-3.3-7.5">
+            <p id="section-3.3-7.5.1">Continues with standard BGP UPDATE processing and transmission.<a href="#section-3.3-7.5.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>
@@ -1414,40 +1421,8 @@ Fills in the Signature and other required FC fields.<a href="#section-3.4-2.2.4"
         <h3 id="name-fc-bgp-testbed-on-fiti-infr">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-fc-bgp-testbed-on-fiti-infr" class="section-name selfRef">FC-BGP Testbed on FITI Infrastructure</a>
         </h3>
-<p id="section-4.2-1">The FC-BGP testbed is deployed on the FITI backbone network，as illustrated in <a href="#fig-rs-x" class="auto internal xref">Figure 2</a>. FITI provides 40 Autonomous Systems (ASes). These ASes are capable of providing multiple routers and have real physical and geographic relationships.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">The FC-BGP mechanism is implemented using FRRouting version 10.2. This implementation includes the verification of the FC path attribute upon receiving BGP UPDATE messages and the addition and signing of the FC path attribute when sending BGP UPDATE messages. The development and testing of this implementation were conducted on Ubuntu 22.04 with OpenSSL 3.X installed.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3">Following software updates, the testbed is fully capable of performing functional testing for the FC-BGP solution.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">GitHub repository: https://github.com/fcbgp/fcbgp-impl<a href="#section-4.2-4" class="pilcrow">¶</a></p>
-<span id="name-fc-bgp-testbed-on-fiti-infra"></span><div id="fig-rs-x">
-<figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-4.2-5.1">
-<pre>
-        +------------+           +------------+
-        |   Beijing  |           |  Shanghai  |
-        | +--------+ |           | +--------+ |
-        | | FC-BGP | |    ...    | | FC-BGP | |
-        | +--------+ |           | +--------+ |
-        +------------+           +------------+
-              |                        |
-        +-------------------------------------+
-        |                                     |
-        |                FITI                 |
-        |              Backbone               |
-        |                                     |
-        +-------------------------------------+
-              |                        |
-        +------------+           +------------+
-        |   Nanjing  |           |  Shenzhen  |
-        | +--------+ |           | +--------+ |
-        | | FC-BGP | |    ...    | | FC-BGP | |
-        | +--------+ |           | +--------+ |
-        +------------+           +------------+
-</pre>
-</div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-fc-bgp-testbed-on-fiti-infra" class="selfRef">FC-BGP Testbed on FITI Infrastructure.</a>
-          </figcaption></figure>
-</div>
+<p id="section-4.2-1">The FC-BGP testbed was deployed on the FITI backbone network, as illustrated in <a href="#fig-rs-x" class="auto internal xref">Figure 2</a>. FITI provides a network environment comprising 40 interconnected ASes located in cities such as Beijing, Shanghai, Nanjing, and Shenzhen. These ASes are capable of running the BGP protocol, support customizable routing policies, and reflect realistic physical and geographical topologies. Each AS can host multiple routers. The FC-BGP mechanism was implemented in 31 of the ASes, including deployment on commercial H3C CR16000 or CR19000 routers in a subset of them. After software updates, these 31 ASes were fully FC-BGP-enabled, supporting route exchange as well as FC attribute transmission and reception. The remaining 9 ASes did not deploy FC-BGP and were used to construct a partial deployment scenario.The testbed is fully capable of supporting the evaluation requirements for the FC-BGP solution.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">GitHub repository: https://github.com/fcbgp/fcbgp-implementation<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1457,10 +1432,106 @@ Fills in the Signature and other required FC fields.<a href="#section-3.4-2.2.4"
       <h2 id="name-test-experience-and-results">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-test-experience-and-results" class="section-name selfRef">Test Experience and Results</a>
       </h2>
-<p id="section-5-1">The prototype implementation of FC-BGP, as outlined in Section 2, has been deployed on the testbed described in Section 3. All solutions have been successfully tested, as described in the test experience and results presented in this section.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Utilizing public datasets from RouteViews, we reconstructed the Internet BGP topology and replayed BGP announcements on the Testbed. We evaluated the functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">To assess the impact of partial deployment, we varied the deployment ratio of FC-BGP and measured the resulting network-wide route hijackability rate as the deployment rate increased. Given a deployment rate r, we randomly select the r% ASes to upgrade any one of FC-BGP. We randomly select two ASes, A as the victim and B as the attacker. AS B initiates origin prefix hijacking of AS A to all other ASes in the topology and computes the proportion of ASes that can be hijacked denoted as p. This process is repeated 10,000 times, and the average value of p is computed as the hijacking rate at the current deployment rate r.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">The test results are consistent with the expected outcomes. In a fully deployed FC-BGP network, an adversary cannot falsely claim the authenticity of a non-existent path by strategically combining FCs messages. Under partial deployment, the experimental results show that with a deployment rate of only 10%, more than 70% of Internet BGP paths can be protected.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-1">The prototype implementation of FC-BGP, as described in Section 2, was deployed on the testbed outlined in Section 3. The functionality of the FC-BGP prototype and its compatibility under partial deployment scenarios were evaluated. All features were successfully tested, as detailed in the experimental results presented in this section.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<div id="test-experience">
+<section id="section-5.1">
+        <h3 id="name-test-experience">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-test-experience" class="section-name selfRef">Test Experience</a>
+        </h3>
+<ol start="1" type="1" class="normal type-1" id="section-5.1-1">
+<li id="section-5.1-1.1">
+            <p id="section-5.1-1.1.1">Functional testing of FC-BGP is conducted to verify the protocol's compliance with its specification in terms of message construction and operational behavior. The evaluation focuses on verifying that a BGP speaker is able to correctly construct BGP UPDATE messages containing the FC path attribute and that the message format conforms to the FC-BGP specification. In addition, the tests validate that the FC-BGP implementation correctly performs AS path validation procedures.<a href="#section-5.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<span id="name-fc-bgp-testbed-on-fiti-infra"></span><div id="fig-rs-x">
+<figure id="figure-2">
+          <div class="alignLeft art-text artwork" id="section-5.1-2.1">
+<pre>
++--------------+
+|    Urumqi    |                                             ...
+| +----------+ |                                              |
+| |  FC-BGP  | |----+                                 +--------------+
+| +----------+ |    |                                 |   Shenyang   |
++--------------+    |                   ...           | +----------+ |
+                    |                    |         +--| |  FC-BGP  | |
+                    |            +-------+------+  |  | +----------+ |
+                   /             |    Beijing   |  |  +--------------+
+        +----------\------------| +----------+ |--+
+        |           | +----------+ |  FC-BGP  | +---...---+
+        |           | |          | +----------+ |         |
+        |           | |          +-------+------+         |
+        |           | |                  |                |
+        |           | |                  |               ...
+        |     +-----+-+------+   +-------+------+         |
+        |     |     Xi'an    |   |  Zhengzhou   |         |
+        |  .  | +----------+ |   | +----------+ |         |
+        |  .--| |  FC-BGP  | |   | |  FC-BGP  | |  +------+-------+
+        |  .  | +----------+ |   | +----------+ |  |   Shanghai   |
+        |     +------+-------+   +-------+------+  | +----------+ |   .
+        |            |                   |         | |Legacy-BGP| |-- .
+        |            |                   |         | +----------+ |   .
+        |            |           +-------+------+  +------+-------+
++-------+------+     |           |     Wuhan    |         |
+|     Lhasa    |     |           | +----------+ |         |
+| +----------+ |    ... ---------| |Legacy-BGP| |------- ...
+| |  FC-BGP  | |                 | +----------+ |         |
+| +----------+ |                 +-------+------+         |
++--------------+                         |                |
+                                         |                |
+                                 +-------+------+         |
+                                 |   Changsha   |         |
+                                 | +----------+ |         |
+                                 | |  FC-BGP  | |         |
+                                 | +----------+ |        ...
+                                 +-------+------+         |
+                                         |                |
+                                         |                |
+               +--------------+  +-------+------+         |
+               |    Nanning   |  |   Guangzhou  |         |
+               | +----------+ |  | +----------+ |         |
+               | |  FC-BGP  | |--| |  FC-BGP  | |---------+
+               | +----------+ |  | +----------+ |
+               +--------------+  +----+----+----+
+               +--------------+       |    |     +--------------+
+               |    Haikou    |       |    |     |   Shenzhen   |
+               | +----------+ |       |    |     | +----------+ |
+               | |  FC-BGP  | |-------+    +-----| |  FC-BGP  | |
+               | +----------+ |                  | +----------+ |
+               +--------------+                  +--------------+
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-fc-bgp-testbed-on-fiti-infra" class="selfRef">FC-BGP Testbed on FITI Infrastructure.</a>
+          </figcaption></figure>
+</div>
+<ol start="1" type="1" class="normal type-1" id="section-5.1-3">
+<li id="section-5.1-3.1">
+            <p id="section-5.1-3.1.1">To assess the effectiveness and compatibility of FC-BGP in partial deployment scenarios, a testbed is constructed consisting of routers that support the FC-BGP mechanism and intermediate routers that do not support it. The goal of the testing is to confirm that routers without FC-BGP mechanism support can transparently forward BGP UPDATE messages containing FC path attributes without discarding or altering them. This ensures that FC path attributes are preserved even when traversing BGP routers that do not support the FC-BGP mechanism.<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-5.1-3.2">
+            <p id="section-5.1-3.2.1">Evaluate the compatibility of the FC-BGP prototype device in a variety of network scenarios. Verify the routing processing capabilities of the FC-BGP device under different address families, including IPv4 and IPv6. Test the compatibility of the FC-BGP prototype device, when functioning as a BGP route reflector (RR) and RR client, in networks composed of commercial routers from different vendors.<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+</section>
+</div>
+<div id="test-results">
+<section id="section-5.2">
+        <h3 id="name-test-results">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-test-results" class="section-name selfRef">Test Results</a>
+        </h3>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-1">
+<li id="section-5.2-1.1">
+            <p id="section-5.2-1.1.1">The test results indicated that the FC-BGP prototype correctly implemented the functionalities as defined in the protocol specification <span>[<a href="#FC-BGP-Protocol" class="cite xref">FC-BGP-Protocol</a>]</span>. All FC-BGP-enabled BGP speakers were able to successfully generate FC-BGP UPDATE messages that conformed to the protocol specification, and the receiving AS was able to correctly perform the path validation procedure. The FC path validation mechanism functioned as intended, verifying each hop in the AS_PATH sequentially. In scenarios where the receiving AS did not support FC-BGP, the system was still able to forward FC-BGP UPDATE messages without disruption.<a href="#section-5.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-5.2-1.2">
+            <p id="section-5.2-1.2.1">Under partial deployment conditions, FC-BGP demonstrated good compatibility with legacy BGP routers. Commercial routers from different vendors that do not support FC-BGP (such as Huawei and Ruijie) were able to transparently forward UPDATE messages containing FC path attributes, and the integrity of these messages was preserved throughout the forwarding process. These results suggest that FC-BGP supports incremental deployment and remains compatible with existing BGP implementations. With respect to partial deployment, Section 5.1.1 of <span>[<a href="#FC-ARXIV" class="cite xref">FC-ARXIV</a>]</span> demonstrates that an adversary cannot forge a valid AS path when FC-BGP is fully deployed. Furthermore, Section 5.1.2 of <span>[<a href="#FC-ARXIV" class="cite xref">FC-ARXIV</a>]</span> analyzes the advantages of FC-BGP in partial deployment scenarios. The analysis shows that FC-BGP offers greater security benefits than BGPsec under partial deployment conditions.<a href="#section-5.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-5.2-1.3">
+            <p id="section-5.2-1.3.1">The test results indicated that the FC-BGP prototype device was capable of correctly receiving and processing routing information for all supported address families. When operating as a BGP RR, the FC-BGP prototype device correctly reflected both IPv4 and IPv6 routes to its clients. Additionally, when acting as a BGP RR client, the FC-BGP prototype device was able to properly receive routes from the RR. These results demonstrate that the FC-BGP prototype device exhibits strong compatibility across a variety of network scenarios.<a href="#section-5.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+</section>
+</div>
 </section>
 </div>
 <div id="conclusion">
@@ -1468,16 +1539,13 @@ Fills in the Signature and other required FC fields.<a href="#section-3.4-2.2.4"
       <h2 id="name-conclusion">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-conclusion" class="section-name selfRef">Conclusion</a>
       </h2>
-<p id="section-6-1">In conclusion, experimental results demonstrate that：<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">In conclusion, experimental results demonstrate that:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-6-2">
 <li id="section-6-2.1">
-          <p id="section-6-2.1.1">FC-BGP offers efficient and scalable path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-2.1.1">FC-BGP offers efficient and scalable AS path verification while preserving compatibility and stability with existing routing protocols. These advantages are achieved without the need for modifications to the current Internet architecture.<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-6-2.2">
           <p id="section-6-2.2.1">Incremental deployment is a key design principle that was used in the experiment. The results indicate that, even with partial deployment, FC-BGP provides significant security benefits in protecting routing information, encouraging early adoption of the solution by service providers.<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-6-2.3">
-          <p id="section-6-2.3.1">FC-BGP is highly adaptable to diverse network environments, supporting ISP policy enforcement and multipath routing, thus confirming its practicality and feasibility for large-scale deployment on the Internet.<a href="#section-6-2.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
 </section>
